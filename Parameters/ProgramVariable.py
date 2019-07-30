@@ -1,8 +1,8 @@
 
 class ProgramVariable():
-    uSDB = None
-    pSDB = None
-    wgt_dic = None
-    itemList = None
-    cnt_dic = None
+    uSDB = list()
+    pSDB = list()
+    wgt_dic = dict()
+    itemList = list()
+    cnt_dic = dict()
 

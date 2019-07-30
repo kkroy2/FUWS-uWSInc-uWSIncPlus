@@ -47,7 +47,7 @@ class ProbabilityAssign():
 
 
 class WeightAssign():
-    wgt_file = open('weights.csv','r')
+    wgt_file = open('../Files/weights.csv','r')
     current_point = wgt_file.tell()
 
     @staticmethod

@@ -6,6 +6,7 @@ class Variable():
     WAM = 0.0
     size_of_dataset = 0.0
     size_of_increment = 0.0
+    eps = 0.000000001
 
     @staticmethod
     def __init__(local_threshold, window_size, mu, wam):

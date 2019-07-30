@@ -24,3 +24,11 @@ class ThresholdCalculation():
     def update_dataset(sz):
         Variable.size_of_dataset += sz
 
+    @staticmethod
+    def get_wgt_exp_sup():
+        return UserDefined.min_sup*Variable.size_of_dataset*UserDefined.wgt_factor*Variable.WAM
+
+    @staticmethod
+    def get_semi_wgt_exp_sup():
+        return UserDefined.min_sup * Variable.size_of_dataset * UserDefined.wgt_factor\
+               * Variable.WAM * Variable.mu
