@@ -7,10 +7,11 @@ class FileInfo():
     increment_dataset = None
     increment_fs = None
     increment_sfs = None
+    ls = None
 
     @staticmethod
     def set_initial_file_info(init_db, fs, sfs):
-        FileInfo.increment_dataset = open(init_db, 'r')
+        FileInfo.initial_dataset = open(init_db, 'r')
         FileInfo.fs = open(fs, 'w')
         FileInfo.sfs = open(sfs, 'w')
         pass

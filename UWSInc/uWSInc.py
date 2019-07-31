@@ -1,54 +1,23 @@
-from DynamicPortion.Trie import Trie
-from Utility.Parameters import Parameters
-from uWseq.uWSequence import uWSequence
+from Parameters.ProgramVariable import ProgramVariable
+from Parameters.Variable import Variable
+from Parameters.FileInfo import FileInfo
 
 
 class uWSInc():
-    uWSeq = None
-    wfile = '../weight.txt'
-    candtfile = '../candidate.txt'
-    fsFileName = '../intialFS.txt'
-    sfsFileName = '../intialSFS.txt'
-    finalFSfile = '../FSFromuWSInc.txt'
-    intSDBfile = '../signDB2'
-    preSDBfile = '../preProcessed.txt'
-    apSDBfile = '../appendedSDB.txt'
-    finalSFSfile = '../SFSFromuWSInc.txt'
 
-    fssfsTrie = None
-
-    def __init__(self):
-        self.fssfsTrie = Trie(self.finalFSfile, self.finalSFSfile, self.apSDBfile)
-        self.uWSeq = uWSequence(Parameters.min_sup, Parameters.minExpWeight,
-                                self.wfile, self.candtfile, self.fsFileName, self.sfsFileName,
-                                self.intSDBfile, self.preSDBfile)
-        self.uWSeq.douWSequence()
-        self.uWSeq.fsFile.close()
-        self.uWSeq.sfsFile.close()
-        self.uWSeq.candidateFile.close()
-        Parameters.dbSize = len(self.uWSeq.uSDB)
-
-        seqfile = open(self.fsFileName, 'r')
-        for seqtuple in seqfile:
-            seq, support = seqtuple.split(' ')
-            self.fssfsTrie.insertion(self.fssfsTrie.rootNode, seq, 0, support)
-
-        seqfile = open(self.sfsFileName, 'r')
-        for seqtuple in seqfile:
-            seq, support = seqtuple.split(' ')
-            self.fssfsTrie.insertion(self.fssfsTrie.rootNode, seq, 0, support)
+    def __init__(self, trie):
+        self.fssfsTrie = trie
         pass
 
-    def uWSIncMethod(self, apDBname):
-        supportThreshold = Parameters.semiBoundary()
-        self.fssfsTrie.supportDP.setReadfile(apDBname)
-        self.fssfsTrie.traverseTrie(self.fssfsTrie.rootNode, [], supportThreshold)
-        Parameters.dbSize += self.fssfsTrie.supportDP.curDBSize
-
-        self.fssfsTrie.updateTrie(self.fssfsTrie.rootNode)
-        self.fssfsTrie.trieIntoFile(self.fssfsTrie.rootNode, '')
-        self.fssfsTrie.FSwhereToWrite.write('\n')
-        self.fssfsTrie.SFSwhereToWrite.write('\n')
-
+    def uWSIncMethod(self):
+        Variable.size_of_dataset += len(ProgramVariable.uSDB)
+        print(Variable.size_of_dataset, ' at uWSIncMethod..')
+        for i in range(0, len(ProgramVariable.uSDB)):
+            self.fssfsTrie.update_support(self.fssfsTrie.root_node, None, 0.0, i)
+        self.fssfsTrie.traverse_trie(self.fssfsTrie.root_node)
+        self.fssfsTrie.update_trie(self.fssfsTrie.root_node)
+        self.fssfsTrie.trie_into_file(self.fssfsTrie.root_node, '')
+        FileInfo.fs.write('\n \n')
+        FileInfo.sfs.write('\n \n')
         return
 

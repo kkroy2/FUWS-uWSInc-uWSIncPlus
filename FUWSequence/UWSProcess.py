@@ -97,7 +97,7 @@ class UWSProcess():
                             if itm[0] not in tmpItmDic:
                                 tmpItmDic[itm[0]] = [itm[1], [I, J, k]]
                 for itm in tmpItmDic:
-                    print(itm, tmpItmDic[itm])
+                    # print(itm, tmpItmDic[itm])
                     if itm not in allItmDic:
                         allItmDic[itm] = [float(tmpItmDic[itm][0]), tmpItmDic[itm][0], []]
                         allItmDic[itm][2].append(tmpItmDic[itm][1])

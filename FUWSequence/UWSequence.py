@@ -13,13 +13,14 @@ class UWSequence():
     imp_root_node = None
 
     def __init__(self):
-        self.rootNode = TrieNode(False, None, None, None, False)
+        self.candi_root_node = TrieNode(False, None, None, 0.0, False)
         # def __init__(self, marker, extnType, label, support, flag):
 
         pass
 
     def douWSequence(self):
         allItmDic = self.determinationProjection()
+        # print(allItmDic, ' print at douwsequence......')
         for item in allItmDic:
             sWeight, maxPr, wExpSupTop, prjSDB = allItmDic[item]
 
@@ -27,26 +28,30 @@ class UWSequence():
                 cur_seq = list()
                 cur_seq.append(str(item))
                 newNode = TrieNode(True, 'S', item, 0.0, False)
-                if (item, 'S') not in self.rootNode.descendants:
-                    self.rootNode.descendants[(item, 'S')] = newNode
+                if (item, 'S') not in self.candi_root_node.descendants:
+                    self.candi_root_node.descendants[(item, 'S')] = newNode
 
                 UWSProcess().douWSProcess(prjSDB, newNode, copy.deepcopy(cur_seq), maxPr, sWeight, 1)
 
         print('Candidated Generated!!')
+        # self.candidateTrieTraversal(self.candi_root_node, '')
         for i in range(0, len(ProgramVariable.uSDB)):
-            self.actualSupportCalculation(self.rootNode, 0.0, None, i)
-            print(' Done: ', i)
-        self.findFSandSFS(self.rootNode, '')
-
-        return
+            self.actualSupportCalculation(self.candi_root_node, 0.0, None, i)
+            # print(' Done: ', i)
+        # self.findFSandSFS(self.candi_root_node, '')
+        # FileInfo.fs.write('\n \n')
+        # FileInfo.sfs.write('\n \n')
+        print(' FS and SFS are generated!')
+        return self.candi_root_node
 
     def candidateTrieTraversal(self, curNode, curSeq):
+        # print('calling candidate trie traversal ...')
         if curNode.extnType == 'I' and curNode.label is not None:
             curSeq = curSeq[:len(curSeq) - 1] + curNode.label + ')'
         elif curNode.label is not None:
             curSeq = curSeq + '(' + curNode.label + ')'
-        # if curNode.marker:
-        #     # print(curSeq, " current seq with ", curNode.supportValue )
+        if curNode.marker:
+            print(curSeq, " current seq with ", curNode.supportValue )
         for dscnt in curNode.descendants.values():
             self.candidateTrieTraversal(dscnt, curSeq)
         return
@@ -97,14 +102,14 @@ class UWSequence():
                         expValArray.append([i, itm[1]])
             else:
                 left = 0
-                right = len(ProgramVariable.uSDB[trnId][i])
+                right = len(ProgramVariable.uSDB[trnId][i])-1
                 while left <= right:
                     mid = (left + right) // 2
                     itm = ProgramVariable.uSDB[trnId][i][mid]
                     if itm[0] == item:
                         expValArray.append([i, itm[1]])
                         break
-                    elif itm < item:
+                    elif itm[0] < item:
                         left = mid + 1
                     else:
                         right = mid - 1
@@ -162,7 +167,7 @@ class UWSequence():
                         exp_val_array.append([pos[0], pos[1]*itm[1]])
             else:
                 left = 0
-                right = len(ProgramVariable.uSDB[trn_id][pos[0]])
+                right = len(ProgramVariable.uSDB[trn_id][pos[0]])-1
                 while left <= right:
                     mid = (left + right) // 2
                     itm = ProgramVariable.uSDB[trn_id][pos[0]][mid]
@@ -222,7 +227,7 @@ class UWSequence():
                         exp_val_array.append([i, val*itm[1]])
             else:
                 left = 0
-                right = len(ProgramVariable.uSDB[trn_id][i])
+                right = len(ProgramVariable.uSDB[trn_id][i])-1
                 while left <= right:
                     mid = (left + right) // 2
                     itm = ProgramVariable.uSDB[trn_id][i][mid]

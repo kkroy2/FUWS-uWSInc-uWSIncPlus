@@ -8,6 +8,7 @@ class WAMCalculation():
 
     @staticmethod
     def update_WAM():
+        # print(ProgramVariable.cnt_dic, ' printing at update_WAM')
         for itm in ProgramVariable.cnt_dic:
             wgt = ProgramVariable.wgt_dic.get(itm)
             cnt = ProgramVariable.cnt_dic.get(itm)

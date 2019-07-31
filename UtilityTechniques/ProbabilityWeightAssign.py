@@ -49,7 +49,6 @@ class ProbabilityAssign():
 class WeightAssign():
     wgt_file = open('../Files/weights.csv','r')
     current_point = wgt_file.tell()
-
     @staticmethod
     def assign(itms):
         WeightAssign.wgt_file.seek(WeightAssign.current_point)

@@ -5,6 +5,10 @@ from Parameters.ProgramVariable import ProgramVariable
 class PreProcess():
 
     def __init__(self):
+        ProgramVariable.uSDB = []
+        ProgramVariable.pSDB = []
+        ProgramVariable.itemList = list()
+        ProgramVariable.cnt_dic = dict()
         pass
 
     def doProcess(self):
@@ -90,6 +94,13 @@ class PreProcess():
             ProgramVariable.pSDB = pSDB
             ProgramVariable.itemList = itemList
             ProgramVariable.cnt_dic = cntMap
+            # print(ProgramVariable.uSDB)
+            # print(' printing at Preprocessing after uSDB')
+            # print(ProgramVariable.pSDB)
+            # print(' printing  itemlist')
+            # print(ProgramVariable.itemList)
+            # print('weight ')
+            # print(ProgramVariable.cnt_dic)
         return
 
 
