@@ -23,22 +23,24 @@ class UWSequence():
         # print(allItmDic, ' print at douwsequence......')
         for item in allItmDic:
             sWeight, maxPr, wExpSupTop, prjSDB = allItmDic[item]
-
+            print(item, ': ', sWeight, maxPr, wExpSupTop, prjSDB, ' Printing at douWsequence.........')
             if wExpSupTop + Variable.eps >= ThresholdCalculation.get_semi_wgt_exp_sup():
                 cur_seq = list()
                 cur_seq.append(str(item))
-                newNode = TrieNode(True, 'S', item, 0.0, False)
+                newNode = TrieNode(True, 'S', item, wExpSupTop, False)
                 if (item, 'S') not in self.candi_root_node.descendants:
                     self.candi_root_node.descendants[(item, 'S')] = newNode
 
                 UWSProcess().douWSProcess(prjSDB, newNode, copy.deepcopy(cur_seq), maxPr, sWeight, 1)
 
         print('Candidated Generated!!')
-        # self.candidateTrieTraversal(self.candi_root_node, '')
+        self.candidateTrieTraversal(self.candi_root_node, '')
         for i in range(0, len(ProgramVariable.uSDB)):
-            self.actualSupportCalculation(self.candi_root_node, 0.0, None, i)
-            # print(' Done: ', i)
-        # self.findFSandSFS(self.candi_root_node, '')
+            self.actualSupportCalculation(self.candi_root_node, 0.0, None, 0, i)
+            print('\n \n Done: ', i, '\n \n')
+        self.checkingActualFSSFS(self.candi_root_node)
+        print(ThresholdCalculation.get_wgt_exp_sup(), ThresholdCalculation.get_semi_wgt_exp_sup())
+        self.findFSandSFS(self.candi_root_node, '')
         # FileInfo.fs.write('\n \n')
         # FileInfo.sfs.write('\n \n')
         print(' FS and SFS are generated!')
@@ -51,20 +53,22 @@ class UWSequence():
         elif curNode.label is not None:
             curSeq = curSeq + '(' + curNode.label + ')'
         if curNode.marker:
-            print(curSeq, " current seq with ", curNode.supportValue )
+            print(curSeq, " current seq with ", curNode.supportValue)
+            curNode.supportValue = 0.0
         for dscnt in curNode.descendants.values():
             self.candidateTrieTraversal(dscnt, curSeq)
         return
 
-    def actualSupportCalculation(self, cur_node, seq_wgt, array, trn_id):
+    def actualSupportCalculation(self, cur_node, seq_wgt, array, cur_ln, trn_id):
         tmp_root_node = None
         if array is not None:
             self.array = array
             self.imp_root_node = ImplicitNode()
             tmp_root_node = self.imp_root_node
             self.ImpSegmentTreeBuild(trn_id)
-
+        tmp_cur_ln = cur_ln
         for dscnt in cur_node.descendants.values():
+            tmp_cur_ln = cur_ln
             tmp_array = []
             tmp_seq_wgt = seq_wgt
             if array is None:
@@ -73,7 +77,8 @@ class UWSequence():
                 for tp in tmp_array:
                     mx = max(mx, tp[1])
                 tmp_seq_wgt += float(ProgramVariable.wgt_dic.get(dscnt.label))
-                dscnt.supportValue += (mx*tmp_seq_wgt)
+                tmp_cur_ln += 1
+                dscnt.supportValue += (mx*tmp_seq_wgt)/float(tmp_cur_ln)
             else:
                 if dscnt.extnType == 'I':
                     tmp_array = self.forItemExtn(dscnt.label, array, trn_id)
@@ -81,16 +86,19 @@ class UWSequence():
                     for tp in tmp_array:
                         mx = max(mx, tp[1])
                     tmp_seq_wgt += float(ProgramVariable.wgt_dic.get(dscnt.label))
-                    dscnt.supportValue += (mx*tmp_seq_wgt)
+                    tmp_cur_ln += 1.0
+                    dscnt.supportValue += (mx*tmp_seq_wgt)/float(tmp_cur_ln)
                 elif dscnt.extnType == 'S':
                     self.imp_root_node = tmp_root_node
                     tmp_array = self.forSeqExtn(dscnt.label, trn_id)
                     mx = 0.0
                     for tp in tmp_array:
                         mx = max(mx, tp[1])
+                    print(array, tmp_array, ' Printing at uWsequence...', cur_node.label, dscnt.label)
                     tmp_seq_wgt += float(ProgramVariable.wgt_dic.get(dscnt.label))
-                    dscnt.supportValue += (mx * tmp_seq_wgt)
-            self.actualSupportCalculation(dscnt, tmp_seq_wgt, tmp_array, trn_id)
+                    tmp_cur_ln += 1.0
+                    dscnt.supportValue += (mx * tmp_seq_wgt)/float(tmp_cur_ln)
+            self.actualSupportCalculation(dscnt, tmp_seq_wgt, tmp_array, tmp_cur_ln, trn_id)
         return
 
     def forINIT(self, item, trnId):
@@ -134,6 +142,17 @@ class UWSequence():
                 FileInfo.sfs.write('\n')
         for dscnt in curNode.descendants.values():
             self.findFSandSFS(dscnt, curSeq)
+        return
+
+    def checkingActualFSSFS(self, curNode):
+        # print(curNode.supportValue, self.minExpSupport, Parameters.miu, curSeq,' At Find FS and SFS')
+        curNode.marker = False
+        if curNode.supportValue + Variable.eps >= ThresholdCalculation.get_wgt_exp_sup():
+            curNode.marker = True
+        elif curNode.supportValue + Variable.eps >= ThresholdCalculation.get_semi_wgt_exp_sup():
+            curNode.marker = True
+        for dscnt in curNode.descendants.values():
+            self.checkingActualFSSFS(dscnt)
         return
 
     def determinationProjection(self):
@@ -181,7 +200,8 @@ class UWSequence():
         return exp_val_array
 
     def imp_tree_update(self, node, beg, end, pos, val):
-        if beg == pos and pos == end:
+        if (beg == pos) and (pos == end):
+            # print(pos, beg, end, val, ' imp_tree_update..')
             node.val = val
             return
         mid = (beg + end) // 2
@@ -205,15 +225,18 @@ class UWSequence():
         return
 
     def ImpMRQ(self, node, beg, end, l, r):
-
+        # print(beg, end, l , r, ' :ImpMRQ')
         if (l > r) or (node is None):
             return 0.0
-        if beg == l and end == r:
+        if (beg == l) and (end == r):
+            # print('Here: ', l, r, node.val, ' How is it possible')
             return node.val
         mid = (beg + end) // 2
 
         ret_l = self.ImpMRQ(node.left, beg, mid, l, min(mid, r))
-        ret_r = self.ImpMRQ(node.right, mid+1, r, max(mid+1, l), r)
+        ret_r = self.ImpMRQ(node.right, mid+1, end, max(mid+1, l), r)
+        # print(ret_l, l , min(mid, r), ' : ImpMRQLLLLLLLLL1')
+        # print(ret_r, max(mid+1, l), r, ' :ImpMRQRRRRRRRRR')
         return max(ret_l, ret_r)
 
     def forSeqExtn(self, item, trn_id):
@@ -223,7 +246,8 @@ class UWSequence():
             if len(itms) <= 3:
                 for itm in itms:
                     if itm[0] == item:
-                        val = self.ImpMRQ(self.imp_root_node, 0, len(ProgramVariable.uSDB[trn_id]), 0, i - 1)
+                        val = self.ImpMRQ(self.imp_root_node, 0, len(ProgramVariable.uSDB[trn_id])-1, 0, i - 1)
+                        print(val, itm)
                         exp_val_array.append([i, val*itm[1]])
             else:
                 left = 0
@@ -232,7 +256,7 @@ class UWSequence():
                     mid = (left + right) // 2
                     itm = ProgramVariable.uSDB[trn_id][i][mid]
                     if itm[0] == item:
-                        val = self.ImpMRQ(self.imp_root_node, 0, len(ProgramVariable.uSDB[trn_id]), 0, i - 1)
+                        val = self.ImpMRQ(self.imp_root_node, 0, len(ProgramVariable.uSDB[trn_id])-1, 0, i - 1)
                         exp_val_array.append([i, val*itm[1]])
                         break
                     elif ProgramVariable.uSDB[trn_id][i][mid][0] < item:

@@ -13,10 +13,10 @@ if __name__ == '__main__':
 
     # initialize user given parameters
     UserDefined.min_sup = 0.2
-    UserDefined.wgt_factor = 1
+    UserDefined.wgt_factor = 0.8
 
     # initialize file info
-    FileInfo.initial_dataset = open('../Files/dataset.txt', 'r')
+    FileInfo.initial_dataset = open('../Files/increment.txt', 'r')
     FileInfo.fs = open('../Files/initialFS.txt', 'w')
     FileInfo.sfs = open('../Files/initialSFS.txt', 'w')
 
@@ -28,13 +28,15 @@ if __name__ == '__main__':
     print('Preprocess Done!')
 
     # Weight Assigning
-    WeightAssign().assign(ProgramVariable.itemList)
+    # WeightAssign.assign(ProgramVariable.itemList)
+    WeightAssign.manual_assign()
     print('Weight Assign Done')
 
     #WAM calculation && DataBase size update
     WAMCalculation.update_WAM()
-    Variable.mu = 0.5
+    Variable.mu = 0.6
     Variable.size_of_dataset = len(ProgramVariable.uSDB)
+    print(Variable.size_of_dataset, ' size of dataset')
     print('WAM Done')
     start_time = time.time()
     UWSequence().douWSequence()

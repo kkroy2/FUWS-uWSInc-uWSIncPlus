@@ -24,7 +24,8 @@ class Trie():
     # def buildTrie(self):
     #     return
 
-    def update_support(self, cur_node, cur_arr, cur_swgt, cur_trn):
+    def update_support(self, cur_node, cur_arr, cur_swgt, cur_ln, cur_trn):
+        tmp_cur_ln = 0.0
         tmp_root_node = None
         if cur_arr is not None:
             self.array = cur_arr
@@ -33,6 +34,7 @@ class Trie():
             self.ImpSegmentTreeBuild(cur_trn)
 
         for dscnt in cur_node.descendants.values():
+            tmp_cur_ln = cur_ln
             tmp_array = []
             tmp_seq_wgt = cur_swgt
             if cur_arr is None:
@@ -41,7 +43,8 @@ class Trie():
                 for tp in tmp_array:
                     mx = max(mx, tp[1])
                 tmp_seq_wgt += float(ProgramVariable.wgt_dic.get(dscnt.label))
-                dscnt.supportValue += (mx * tmp_seq_wgt)
+                tmp_cur_ln += 1
+                dscnt.supportValue += (mx * tmp_seq_wgt) / float(tmp_cur_ln)
             else:
                 if dscnt.extnType == 'I':
                     tmp_array = self.forItemExtn(dscnt.label, cur_arr, cur_trn)
@@ -49,7 +52,8 @@ class Trie():
                     for tp in tmp_array:
                         mx = max(mx, tp[1])
                     tmp_seq_wgt += float(ProgramVariable.wgt_dic.get(dscnt.label))
-                    dscnt.supportValue += (mx * tmp_seq_wgt)
+                    tmp_cur_ln += 1
+                    dscnt.supportValue += (mx * tmp_seq_wgt) / float(tmp_cur_ln)
                 elif dscnt.extnType == 'S':
                     self.imp_root_node = tmp_root_node
                     tmp_array = self.forSeqExtn(dscnt.label, cur_trn)
@@ -57,8 +61,9 @@ class Trie():
                     for tp in tmp_array:
                         mx = max(mx, tp[1])
                     tmp_seq_wgt += float(ProgramVariable.wgt_dic.get(dscnt.label))
-                    dscnt.supportValue += (mx * tmp_seq_wgt)
-            self.update_support(dscnt, tmp_array,tmp_seq_wgt, cur_trn)
+                    tmp_cur_ln += 1
+                    dscnt.supportValue += (mx * tmp_seq_wgt)/float(tmp_cur_ln)
+            self.update_support(dscnt, tmp_array,tmp_seq_wgt, tmp_cur_ln, cur_trn)
 
     def traverse_trie(self, cur_node):
         if cur_node.supportValue + Variable.eps >= ThresholdCalculation.get_semi_wgt_exp_sup():
@@ -265,7 +270,7 @@ class Trie():
         tmp_dscnt = copy.deepcopy(cur_node.descendants)
         cur_node.descendants = dict()
         for dscnt_key, dscnt_value in tmp_dscnt.items():
-            childs = self.updateWithlsTrieBuild(dscnt_value, cur_seq)
+            childs = self.updateWithlsTrieBuild(dscnt_value, tmp_cur_seq)
             if childs > 0:
                 cur_node.descendants[dscnt_key] = dscnt_value
         return len(cur_node.descendants) + cur_node.marker
@@ -414,7 +419,7 @@ class Trie():
         mid = (beg + end) // 2
 
         ret_l = self.ImpMRQ(node.left, beg, mid, l, min(mid, r))
-        ret_r = self.ImpMRQ(node.right, mid + 1, r, max(mid + 1, l), r)
+        ret_r = self.ImpMRQ(node.right, mid + 1, end, max(mid + 1, l), r)
         return max(ret_l, ret_r)
 
     def forSeqExtn(self, item, trn_id):
@@ -424,7 +429,7 @@ class Trie():
             if len(itms) <= 3:
                 for itm in itms:
                     if itm[0] == item:
-                        val = self.ImpMRQ(self.imp_root_node, 0, len(ProgramVariable.uSDB[trn_id]), 0, i - 1)
+                        val = self.ImpMRQ(self.imp_root_node, 0, len(ProgramVariable.uSDB[trn_id])-1, 0, i - 1)
                         exp_val_array.append([i, val * itm[1]])
             else:
                 left = 0
@@ -433,7 +438,7 @@ class Trie():
                     mid = (left + right) // 2
                     itm = ProgramVariable.uSDB[trn_id][i][mid]
                     if itm[0] == item:
-                        val = self.ImpMRQ(self.imp_root_node, 0, len(ProgramVariable.uSDB[trn_id]), 0, i - 1)
+                        val = self.ImpMRQ(self.imp_root_node, 0, len(ProgramVariable.uSDB[trn_id])-1, 0, i - 1)
                         exp_val_array.append([i, val * itm[1]])
                         break
                     elif ProgramVariable.uSDB[trn_id][i][mid][0] < item:

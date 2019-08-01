@@ -21,7 +21,7 @@ class UWSProcess():
             sum_sup, imax_pro, prjSDB = allItmDic[item]
             tmp_sWgt = sWgt + float(ProgramVariable.wgt_dic.get(item))
             tmp_cur_len = curLen + 1
-            expSupportTop = (sum_sup * imax_pro * max_pr * tmp_sWgt) / tmp_cur_len
+            expSupportTop = (sum_sup * max_pr * tmp_sWgt) / tmp_cur_len
             if expSupportTop + Variable.eps >= ThresholdCalculation.get_semi_threshold():
 
                 tcurItmSt = copy.deepcopy(cur_itm_set)
@@ -42,11 +42,12 @@ class UWSProcess():
             tmp_sWgt = sWgt + float(ProgramVariable.wgt_dic.get(item))
             expSupportTop = (sup_sum * max_pr * tmp_sWgt) / tmp_cur_len
             # expSupportTop = (sup_sum * imax_pro * max_pr * tmp_sWgt) / tmp_cur_len
+
             if expSupportTop + Variable.eps >= ThresholdCalculation.get_semi_wgt_exp_sup():
                 tcurItmSt = []
                 tcurItmSt.append(str(item))
 
-                newNode = TrieNode(True, 'S', item, 0.0, False)
+                newNode = TrieNode(True, 'S', item, expSupportTop, False)
                 if (item, 'S') not in curNode.descendants:
                     curNode.descendants[(item, 'S')] = newNode
                 self.douWSProcess(prjSDB, newNode, copy.deepcopy(tcurItmSt), max_pr * imax_pro, tmp_sWgt, tmp_cur_len)
@@ -88,9 +89,10 @@ class UWSProcess():
                     found = -1
                     if len(curItemset) < len(itemset):
                         for k in range(0, len(curItemset)):
+                            found = -1
                             if curItemset[k] != itemset[k]:
                                 break
-                        found = len(curItemset)
+                            found = len(curItemset)
                     if found != -1:
                         for k in range(found, len(itemset)):
                             itm = itemset[k]

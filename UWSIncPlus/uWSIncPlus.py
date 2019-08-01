@@ -20,7 +20,7 @@ class uWSIncPlus():
     def uWSIncPlusMethod(self):
         # initialize the threshold for finding the local set of frequent sequences
         previous_threshold = UserDefined.min_sup
-        UserDefined.min_sup = UserDefined.min_sup*1.5
+        UserDefined.min_sup = UserDefined.min_sup*2
         previous_data_set = Variable.size_of_dataset
         Variable.size_of_dataset = len(ProgramVariable.uSDB)
         self.cur_ls_trie = Trie(UWSequence().douWSequence())
@@ -31,7 +31,7 @@ class uWSIncPlus():
         Variable.size_of_dataset += len(ProgramVariable.uSDB)
 
         for i in range(0 , len(ProgramVariable.uSDB)):
-            self.fssfs_trie.update_support(self.fssfs_trie.root_node, None, 0.0, i)
+            self.fssfs_trie.update_support(self.fssfs_trie.root_node, None, 0.0,0, i)
 
         # print(' Before merging two ls trie............ \n \n')
         # self.cur_ls_trie.printPFS(self.cur_ls_trie.root_node, '')
