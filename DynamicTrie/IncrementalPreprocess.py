@@ -51,8 +51,8 @@ class IncPreProcess():
 
             ProgramVariable.uSDB.append(apSeq)
 
-        for seq in ProgramVariable.uSDB:
-            print(seq)
-        print(len(ProgramVariable.uSDB), 'appended dataset size why ')
+        # for seq in ProgramVariable.uSDB:
+            # print(seq)
+        # print(len(ProgramVariable.uSDB), 'appended dataset size why ')
         return
 

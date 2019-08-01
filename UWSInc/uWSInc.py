@@ -11,7 +11,7 @@ class uWSInc():
 
     def uWSIncMethod(self):
         Variable.size_of_dataset += len(ProgramVariable.uSDB)
-        print(Variable.size_of_dataset, ' at uWSIncMethod..')
+        # print(Variable.size_of_dataset, ' at uWSIncMethod..')
         for i in range(0, len(ProgramVariable.uSDB)):
             self.fssfsTrie.update_support(self.fssfsTrie.root_node, None, 0.0, i)
         self.fssfsTrie.traverse_trie(self.fssfsTrie.root_node)

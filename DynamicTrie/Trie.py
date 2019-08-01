@@ -248,6 +248,8 @@ class Trie():
     def updateWithlsTrieBuild(self, cur_node, cur_seq):
         tmp_cur_seq = copy.deepcopy(cur_seq)
         if cur_node.extnType == 'I' and cur_node.label is not None:
+            if len(cur_seq)==0:
+                print(cur_node.label, cur_node.extnType)
             tmp_cur_seq.pop()
             tmp_cur_seq.append(cur_node.label)
             tmp_cur_seq.append(')')
@@ -373,7 +375,7 @@ class Trie():
                     if itm[0] == item:
                         exp_val_array.append([pos[0], pos[1] * itm[1]])
                         break
-                    elif itm < item:
+                    elif itm[0] < item:
                         left = mid + 1
                     else:
                         right = mid - 1

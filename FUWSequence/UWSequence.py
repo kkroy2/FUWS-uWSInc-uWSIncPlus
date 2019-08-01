@@ -174,7 +174,7 @@ class UWSequence():
                     if itm[0] == item:
                         exp_val_array.append([pos[0], pos[1]*itm[1]])
                         break
-                    elif itm < item:
+                    elif itm[0] < item:
                         left = mid+1
                     else:
                         right = mid-1

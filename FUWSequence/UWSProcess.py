@@ -40,8 +40,8 @@ class UWSProcess():
             sup_sum, imax_pro, prjSDB = allItmDic[item]
             tmp_cur_len = curLen + 1
             tmp_sWgt = sWgt + float(ProgramVariable.wgt_dic.get(item))
-            expSupportTop = (sup_sum * imax_pro * max_pr * tmp_sWgt) / tmp_cur_len
-
+            expSupportTop = (sup_sum * max_pr * tmp_sWgt) / tmp_cur_len
+            # expSupportTop = (sup_sum * imax_pro * max_pr * tmp_sWgt) / tmp_cur_len
             if expSupportTop + Variable.eps >= ThresholdCalculation.get_semi_wgt_exp_sup():
                 tcurItmSt = []
                 tcurItmSt.append(str(item))
