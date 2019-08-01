@@ -40,6 +40,7 @@ class IncPreProcess():
                     val = ''
 
                 elif ch is ',':
+                    # print(item, val, ' Print at preprocess')
                     apItemSet.append([str(item), float(val)])
                     val = ''
 

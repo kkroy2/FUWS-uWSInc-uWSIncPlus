@@ -23,7 +23,7 @@ class UWSequence():
         # print(allItmDic, ' print at douwsequence......')
         for item in allItmDic:
             sWeight, maxPr, wExpSupTop, prjSDB = allItmDic[item]
-            print(item, ': ', sWeight, maxPr, wExpSupTop, prjSDB, ' Printing at douWsequence.........')
+            # print(item, ': ', sWeight, maxPr, wExpSupTop, prjSDB, ' Printing at douWsequence.........')
             if wExpSupTop + Variable.eps >= ThresholdCalculation.get_semi_wgt_exp_sup():
                 cur_seq = list()
                 cur_seq.append(str(item))
@@ -33,17 +33,17 @@ class UWSequence():
 
                 UWSProcess().douWSProcess(prjSDB, newNode, copy.deepcopy(cur_seq), maxPr, sWeight, 1)
 
-        print('Candidated Generated!!')
-        self.candidateTrieTraversal(self.candi_root_node, '')
+        # print('Candidated Generated!!')
+        # self.candidateTrieTraversal(self.candi_root_node, '')
         for i in range(0, len(ProgramVariable.uSDB)):
             self.actualSupportCalculation(self.candi_root_node, 0.0, None, 0, i)
-            print('\n \n Done: ', i, '\n \n')
+            # print('\n \n Done: ', i, '\n \n')
         self.checkingActualFSSFS(self.candi_root_node)
         print(ThresholdCalculation.get_wgt_exp_sup(), ThresholdCalculation.get_semi_wgt_exp_sup())
-        self.findFSandSFS(self.candi_root_node, '')
+        # self.findFSandSFS(self.candi_root_node, '')
         # FileInfo.fs.write('\n \n')
         # FileInfo.sfs.write('\n \n')
-        print(' FS and SFS are generated!')
+        # print(' FS and SFS are generated!')
         return self.candi_root_node
 
     def candidateTrieTraversal(self, curNode, curSeq):
@@ -94,7 +94,7 @@ class UWSequence():
                     mx = 0.0
                     for tp in tmp_array:
                         mx = max(mx, tp[1])
-                    print(array, tmp_array, ' Printing at uWsequence...', cur_node.label, dscnt.label)
+                    # print(array, tmp_array, ' Printing at uWsequence...', cur_node.label, dscnt.label)
                     tmp_seq_wgt += float(ProgramVariable.wgt_dic.get(dscnt.label))
                     tmp_cur_ln += 1.0
                     dscnt.supportValue += (mx * tmp_seq_wgt)/float(tmp_cur_ln)
@@ -125,7 +125,7 @@ class UWSequence():
 
     def findFSandSFS(self, curNode, curSeq):
         if curNode.extnType == 'I' and curNode.label is not None:
-            curSeq = curSeq[:len(curSeq) - 1] + curNode.label + ')'
+            curSeq = curSeq[:len(curSeq) - 1] + ', '+ curNode.label + ')'
         elif curNode.label is not None:
             curSeq = curSeq + '(' + curNode.label + ')'
         if curNode.marker:
@@ -247,7 +247,7 @@ class UWSequence():
                 for itm in itms:
                     if itm[0] == item:
                         val = self.ImpMRQ(self.imp_root_node, 0, len(ProgramVariable.uSDB[trn_id])-1, 0, i - 1)
-                        print(val, itm)
+                        # print(val, itm)
                         exp_val_array.append([i, val*itm[1]])
             else:
                 left = 0

@@ -168,7 +168,7 @@ class Trie():
 
     def trie_into_file(self, curNode, curSeq):
         if curNode.extnType == 'I' and curNode.label is not None:
-            curSeq = curSeq[:len(curSeq) - 1] + curNode.label + ')'
+            curSeq = curSeq[:len(curSeq) - 1] + ', '+ curNode.label + ')'
         elif curNode.label is not None:
             curSeq = curSeq + '(' + curNode.label + ')'
         if curNode.marker:
@@ -189,7 +189,7 @@ class Trie():
 
     def trieIntoFilePS(self, curNode, curSeq):
         if curNode.extnType == 'I' and curNode.label is not None:
-            curSeq = curSeq[:len(curSeq) - 1] + curNode.label + ')'
+            curSeq = curSeq[:len(curSeq) - 1] + ', ' +curNode.label + ')'
         elif curNode.label is not None:
             curSeq = curSeq + '(' + curNode.label + ')'
         if curNode.marker:

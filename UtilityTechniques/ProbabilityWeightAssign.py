@@ -18,7 +18,7 @@ class ProbabilityAssign():
         previous = self.probsFile.tell()
         cnt = 0
         for data in self.dataFile:
-            print(data)
+            # print(data)
             seq = '('
             item = ''
             for ch in data:
@@ -29,7 +29,7 @@ class ProbabilityAssign():
                         if item == -1:
                             seq = seq[:len(seq)-1]+')'+'('
                         elif item == -2:
-                            print(seq)
+                            # print(seq)
                             seq = seq[:len(seq)-1]
                             self.whereToWrite.write(seq)
                             self.whereToWrite.write('\n')
@@ -37,6 +37,9 @@ class ProbabilityAssign():
                         else:
                             self.probsFile.seek(previous)
                             prb = self.probsFile.readline().strip()
+                            if prb == "":
+                                self.probsFile.seek(0)
+                                prb = self.probsFile.readline().strip()
                             # print(self.probsFile.tell())
                             previous = self.probsFile.tell()
                             seq += str(item)+':'+str(prb)+','
@@ -54,7 +57,12 @@ class WeightAssign():
         WeightAssign.wgt_file.seek(WeightAssign.current_point)
         for itm in itms:
             if itm not in ProgramVariable.wgt_dic:
-                ProgramVariable.wgt_dic[itm] = float(WeightAssign.wgt_file.readline().strip())
+                wgt = float(WeightAssign.wgt_file.readline().strip())
+                if wgt == "":
+                    WeightAssign.wgt_file.seek(0)
+                    wgt = float(WeightAssign.wgt_file.readline().strip())
+                ProgramVariable.wgt_dic[itm] = wgt
+                WeightAssign.current_point = WeightAssign.wgt_file.tell()
 
     @staticmethod
     def manual_assign():
@@ -65,3 +73,14 @@ class WeightAssign():
         ProgramVariable.wgt_dic['e'] = 0.7
         ProgramVariable.wgt_dic['f'] = 0.9
         ProgramVariable.wgt_dic['g'] = 0.8
+
+
+class checkCSV():
+    file = None
+    @staticmethod
+    def run():
+        cnt = 0
+        for val in checkCSV.file:
+            cnt += 1
+            if (val =='\n') or (val==' '):
+                print(val , cnt, ' here ')

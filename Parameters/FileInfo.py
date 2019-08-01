@@ -8,6 +8,7 @@ class FileInfo():
     increment_fs = None
     increment_sfs = None
     ls = None
+    # time_info = None
 
     @staticmethod
     def set_initial_file_info(init_db, fs, sfs):
