@@ -6,8 +6,8 @@ class IncPreProcess():
         self.file = open(file, 'r')
         # self.preProcess()
         ProgramVariable.uSDB = []
-        ProgramVariable.inc_cnt_dic = dict()
-        ProgramVariable.inc_itm_list = list()
+        ProgramVariable.cnt_dic = dict()
+        ProgramVariable.itemList = list()
         pass
 
     def preProcess(self):
@@ -25,18 +25,20 @@ class IncPreProcess():
                         val = 0.0
                     val = float(val)
                     apItemSet.append([str(item), val])
+                    apItemSet.sort()
                     apSeq.append(apItemSet)
                     apItemSet = []
                     val = ''
 
                 elif ch is ':':
                     item = val
-                    if str(item) not in ProgramVariable.inc_itm_list:
-                        ProgramVariable.inc_itm_list.append(str(item))
-                    if str(item) not in ProgramVariable.inc_cnt_dic:
-                        ProgramVariable.inc_cnt_dic[str(item)] = 1
+                    if str(item) not in ProgramVariable.itemList:
+                        ProgramVariable.itemList.append(str(item))
+
+                    if str(item) not in ProgramVariable.cnt_dic:
+                        ProgramVariable.cnt_dic[str(item)] = 1
                     else:
-                        ProgramVariable.inc_cnt_dic[str(item)] += 1
+                        ProgramVariable.cnt_dic[str(item)] += 1
                     val = ''
 
                 elif ch is ',':

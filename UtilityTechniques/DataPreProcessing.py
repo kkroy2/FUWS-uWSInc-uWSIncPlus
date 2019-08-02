@@ -12,11 +12,6 @@ class PreProcess():
         pass
 
     def doProcess(self):
-        itemList = list()
-        uSDB= []
-        pSDB = []
-        seqMap = dict()
-        cntMap = dict()
 
         for seq in FileInfo.initial_dataset:
             pSeq = []
@@ -55,10 +50,15 @@ class PreProcess():
                     else:
                         seqMap[item] = val
 
-                    if item not in itemList:
-                        itemList.append(item)
                     val = seqMap[item]
                     tnewSeqList.append([item, val])
+
+                    if item not in ProgramVariable.itemList:
+                        ProgramVariable.itemList.append(str(item))
+                    if item not in ProgramVariable.cnt_dic:
+                        ProgramVariable.cnt_dic[item] = 1
+                    else:
+                        ProgramVariable.cnt_dic[item] += 1
 
                     item = ''
                 elif ch is '(':
@@ -68,39 +68,30 @@ class PreProcess():
                     else:
                         seqMap[item] = val
 
-                    if item not in itemList:
-                        itemList.append(str(item))
-                    if item not in cntMap:
-                        cntMap[item] = 1
+                    if item not in ProgramVariable.itemList:
+                        ProgramVariable.itemList.append(str(item))
+                    if item not in ProgramVariable.cnt_dic:
+                        ProgramVariable.cnt_dic[item] = 1
                     else:
-                        cntMap[item] += 1
+                        ProgramVariable.cnt_dic[item] += 1
 
                     uItemSet.append([item, val])
                     val = seqMap[item]
                     tnewSeqList.append([item, val])
                     tnewSeqList = tnewSeqList[::-1]
+
                     tnewSeqList.sort()
                     pSeq.append(tnewSeqList)
                     uItemSet = uItemSet[::-1]
+
                     uItemSet.sort()
                     uSeq.append(uItemSet)
                     item = ''
                 else:
                     item += ch
 
-            uSDB.append(uSeq[::-1])
-            pSDB.append(pSeq[::-1])
-            ProgramVariable.uSDB = uSDB
-            ProgramVariable.pSDB = pSDB
-            ProgramVariable.itemList = itemList
-            ProgramVariable.cnt_dic = cntMap
-            # print(ProgramVariable.uSDB)
-            # print(' printing at Preprocessing after uSDB')
-            # print(ProgramVariable.pSDB)
-            # print(' printing  itemlist')
-            # print(ProgramVariable.itemList)
-            # print('weight ')
-            # print(ProgramVariable.cnt_dic)
+            ProgramVariable.uSDB.append(uSeq[::-1])
+            ProgramVariable.pSDB.append(pSeq[::-1])
         return
 
 

@@ -9,6 +9,7 @@ class Trie():
     root_node = None
     cur_ls_trie = None
     array = None
+    imp_root_node = None
 
     def __init__(self, root_node):
         self.root_node = root_node
@@ -27,7 +28,7 @@ class Trie():
     def update_support(self, cur_node, cur_arr, cur_swgt, cur_ln, cur_trn):
         tmp_cur_ln = 0.0
         tmp_root_node = None
-        if cur_arr is not None:
+        if cur_arr is not None and len(cur_node.descendants) > 0:
             self.array = cur_arr
             self.imp_root_node = ImplicitNode()
             tmp_root_node = self.imp_root_node
@@ -298,27 +299,27 @@ class Trie():
                 else:
                     return 0.0
 
-    def forINIT(self, item, trnId):
-        expValArray = []
-        for i in range(0, len(ProgramVariable.uSDB[trnId])):
-            if len(ProgramVariable.uSDB[trnId][i]) <= 3:
-                for itm in ProgramVariable.uSDB[trnId][i]:
+    def forINIT(self, item, trn_id):
+        exp_val_array = []
+        for i in range(0, len(ProgramVariable.uSDB[trn_id])):
+            if len(ProgramVariable.uSDB[trn_id][i]) <= 3:
+                for itm in ProgramVariable.uSDB[trn_id][i]:
                     if itm[0] == item:
-                        expValArray.append([i, itm[1]])
+                        exp_val_array.append([i, itm[1]])
             else:
                 left = 0
-                right = len(ProgramVariable.uSDB[trnId][i]) - 1
+                right = len(ProgramVariable.uSDB[trn_id][i]) - 1
                 while left <= right:
                     mid = (left + right) // 2
-                    itm = ProgramVariable.uSDB[trnId][i][mid]
+                    itm = ProgramVariable.uSDB[trn_id][i][mid]
                     if itm[0] == item:
-                        expValArray.append([i, itm[1]])
+                        exp_val_array.append([i, itm[1]])
                         break
                     elif itm[0] < item:
                         left = mid + 1
                     else:
                         right = mid - 1
-        return expValArray
+        return exp_val_array
 
     def findFSandSFS(self, curNode, curSeq):
         if curNode.extnType == 'I' and curNode.label is not None:
@@ -405,9 +406,9 @@ class Trie():
         return
 
     def ImpSegmentTreeBuild(self, trn_id):
-        # print(node, beg, end)
+        ln = len(ProgramVariable.uSDB[trn_id])
         for pos in self.array:
-            self.imp_tree_update(self.imp_root_node, 0, len(ProgramVariable.uSDB[trn_id]) - 1, pos[0], pos[1])
+            self.imp_tree_update(self.imp_root_node, 0, ln - 1, pos[0], pos[1])
         return
 
     def ImpMRQ(self, node, beg, end, l, r):

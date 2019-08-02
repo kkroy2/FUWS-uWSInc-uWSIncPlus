@@ -18,8 +18,9 @@ if __name__ == '__main__':
     # fname = '../sign/v0/sign_pp0.txt'
     # fname = '../Files/dataset.txt'
     fname = '../LEVIATHAN/v0/LEVIATHAN_v0_pp0.txt'
-    UserDefined.min_sup = 0.03
-    UserDefined.wgt_factor = 1
+
+    UserDefined.min_sup = 0.4
+    UserDefined.wgt_factor = 0.8
     FileInfo.set_initial_file_info(fname, '../Files/FS.txt', '../Files/SFS.txt')
     FileInfo.time_info = open('../Files/time_info.txt' , 'w')
     start_time = time.time()
@@ -30,7 +31,7 @@ if __name__ == '__main__':
     wgt_assign_obj = WeightAssign()
     wgt_assign_obj.assign(ProgramVariable.itemList)
     WAMCalculation.update_WAM()
-    Variable.mu = 0.8
+    Variable.mu = 0.6
 
     Variable.size_of_dataset = len(ProgramVariable.uSDB)
     fsfss_trie_root_node = UWSequence().douWSequence()
@@ -49,9 +50,10 @@ if __name__ == '__main__':
     for i in range(1, 11):
         fname = prefix+str(i)+'.txt'
         IncPreProcess(fname).preProcess()
+        # print(ProgramVariable.cnt_dic)
         # print(ProgramVariable.uSDB)
         # print(len(ProgramVariable.uSDB), ' At here uwsi')
-        wgt_assign_obj.assign(ProgramVariable.inc_itm_list)
+        wgt_assign_obj.assign(ProgramVariable.itemList)
         WAMCalculation.update_WAM()
         uwsinc.uWSIncMethod()
         cur_time = time.time()
@@ -59,6 +61,21 @@ if __name__ == '__main__':
         FileInfo.time_info.write('\n')
         previous_time = time.time()
         print('Increment No. ', i)
+
+    #
+    # fname = '../Files/increment.txt'
+    # IncPreProcess(fname).preProcess()
+    # print(ProgramVariable.cnt_dic)
+    # # print(ProgramVariable.uSDB)
+    # # print(len(ProgramVariable.uSDB), ' At here uwsi')
+    # wgt_assign_obj.assign(ProgramVariable.itemList)
+    # WAMCalculation.update_WAM()
+    # uwsinc.uWSIncMethod()
+    # cur_time = time.time()
+    # FileInfo.time_info.write(str(cur_time - previous_time))
+    # FileInfo.time_info.write('\n')
+    # previous_time = time.time()
+    # # print('Increment No. ', i)
 
     FileInfo.fs.close()
     FileInfo.sfs.close()

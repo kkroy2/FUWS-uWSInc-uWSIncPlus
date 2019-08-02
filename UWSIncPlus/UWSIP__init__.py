@@ -8,7 +8,6 @@ from Parameters.ProgramVariable import ProgramVariable
 from UtilityTechniques.WAMCalculation import WAMCalculation
 from Parameters.Variable import Variable
 from FUWSequence.UWSequence import UWSequence
-from DynamicTrie.IncrementalPreprocess import IncPreProcess
 from UWSIncPlus.uWSIncPlus import uWSIncPlus
 from DynamicTrie.Trie import Trie, TrieNode
 
@@ -18,7 +17,7 @@ if __name__ == '__main__':
     # fname = '../Files/dataset.txt'
     fname = '../LEVIATHAN/v0/LEVIATHAN_v0_pp0.txt'
 
-    UserDefined.min_sup = 0.03
+    UserDefined.min_sup = 0.4
     UserDefined.wgt_factor = 0.8
     FileInfo.set_initial_file_info(fname, '../Files/FSplus.txt', '../Files/SFSplus.txt')
     FileInfo.ls = open('../Files/ls.txt', 'w')
@@ -60,12 +59,27 @@ if __name__ == '__main__':
         wgt_assign_obj.assign(ProgramVariable.itemList)
         # wgt_assign_obj.manual_assign()
         WAMCalculation.update_WAM()
-        uwsincplus.uWSIncPlusMethod()
+        uwsincplus.uWSIncPlusMethod(UserDefined.min_sup*2)
         cur_time = time.time()
         FileInfo.time_info.write(str(cur_time-previous_time))
         FileInfo.time_info.write('\n')
         previous_time = time.time()
         print('Increment No. ', i)
+
+    # fname = '../Files/increment.txt'
+    # FileInfo.initial_dataset = open(fname, 'r')
+    # # FileInfo.initial_dataset = open(prefix, 'r')
+    # PreProcess().doProcess()
+    # print(ProgramVariable.cnt_dic)
+    # wgt_assign_obj.assign(ProgramVariable.itemList)
+    # # wgt_assign_obj.manual_assign()
+    # WAMCalculation.update_WAM()
+    # uwsincplus.uWSIncPlusMethod()
+    # cur_time = time.time()
+    # FileInfo.time_info.write(str(cur_time-previous_time))
+    # FileInfo.time_info.write('\n')
+    # previous_time = time.time()
+    # # print('Increment No. ', i)
 
     FileInfo.fs.close()
     FileInfo.sfs.close()

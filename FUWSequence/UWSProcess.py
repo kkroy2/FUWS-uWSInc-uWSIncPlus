@@ -5,24 +5,25 @@ from Parameters.ProgramVariable import ProgramVariable
 from UtilityTechniques.ThresholdCalculation import ThresholdCalculation
 from Parameters.Variable import Variable
 
+
 class UWSProcess():
 
     def __init__(self):
         pass
 
     def douWSProcess(self, pSDB, curNode, cur_itm_set, max_pr, sWgt, curLen):
-
+        cur_itm_set.sort()
         # ************* should  check carefully the following portion**************
 
         allItmDic = self.DetermineProjection(pSDB, cur_itm_set, False)
-        # print(allItmDic, cur_itm_set, pSDB, ' current projection')
         # False means it is for Item-Extension
+
         for item in allItmDic:
             sum_sup, imax_pro, prjSDB = allItmDic[item]
             tmp_sWgt = sWgt + float(ProgramVariable.wgt_dic.get(item))
             tmp_cur_len = curLen + 1
             expSupportTop = (sum_sup * max_pr * tmp_sWgt) / tmp_cur_len
-            if expSupportTop + Variable.eps >= ThresholdCalculation.get_semi_threshold():
+            if expSupportTop + Variable.eps >= ThresholdCalculation.get_semi_wgt_exp_sup():
 
                 tcurItmSt = copy.deepcopy(cur_itm_set)
                 tcurItmSt.append(str(item))
@@ -34,7 +35,6 @@ class UWSProcess():
 
         allItmDic = self.DetermineProjection(pSDB, cur_itm_set, True)
         # True means it is for Sequence-Extension
-        # print(allItmDic, cur_itm_set, pSDB, ' current seq projection')
 
         for item in allItmDic:
             sup_sum, imax_pro, prjSDB = allItmDic[item]
@@ -53,7 +53,7 @@ class UWSProcess():
                 self.douWSProcess(prjSDB, newNode, copy.deepcopy(tcurItmSt), max_pr * imax_pro, tmp_sWgt, tmp_cur_len)
         return
 
-    def DetermineProjection(self, prjSDB, curItemset, sExtn):
+    def DetermineProjection(self, prjSDB, cur_item_set, sExtn):
         allItmDic = dict()
         if sExtn:
             for info in prjSDB:
@@ -82,22 +82,23 @@ class UWSProcess():
                     itm = ProgramVariable.pSDB[I][J][k]
                     if itm[0] not in tmpItmDic:
                         tmpItmDic[itm[0]] = [itm[1], [I, J, k]]
+
                 for j in range(J+1, len(ProgramVariable.pSDB[I])):
                     itemset = ProgramVariable.pSDB[I][j]
-                    itemset.sort()
-                    curItemset.sort()
                     found = -1
-                    if len(curItemset) < len(itemset):
-                        for k in range(0, len(curItemset)):
+                    if len(cur_item_set) < len(itemset):
+                        for k in range(0, len(cur_item_set)):
                             found = -1
-                            if curItemset[k] != itemset[k]:
+                            if cur_item_set[k] != itemset[k]:
                                 break
-                            found = len(curItemset)
+                            found = len(cur_item_set)
+
                     if found != -1:
                         for k in range(found, len(itemset)):
                             itm = itemset[k]
                             if itm[0] not in tmpItmDic:
                                 tmpItmDic[itm[0]] = [itm[1], [I, J, k]]
+
                 for itm in tmpItmDic:
                     # print(itm, tmpItmDic[itm])
                     if itm not in allItmDic:
