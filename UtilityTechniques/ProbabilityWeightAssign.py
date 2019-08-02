@@ -30,7 +30,11 @@ class ProbabilityAssign():
                             seq = seq[:len(seq)-1]+')'+'('
                         elif item == -2:
                             # print(seq)
-                            seq = seq[:len(seq)-1]
+                            if seq[len(seq)-1] == '(':
+                                seq = seq[:len(seq)-1]
+                            else:
+                                seq = seq[:len(seq) - 1]
+                                seq += ')'
                             self.whereToWrite.write(seq)
                             self.whereToWrite.write('\n')
                             break

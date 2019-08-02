@@ -1,8 +1,6 @@
 from Parameters.ProgramVariable import ProgramVariable
 from Parameters.Variable import Variable
 from Parameters.FileInfo import FileInfo
-from UtilityTechniques.ThresholdCalculation import ThresholdCalculation
-
 
 class uWSInc():
 

@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # fname = '../Files/dataset.txt'
     fname = '../LEVIATHAN/v0/LEVIATHAN_v0_pp0.txt'
 
-    UserDefined.min_sup = 0.4
+    UserDefined.min_sup = 0.1
     UserDefined.wgt_factor = 0.8
     FileInfo.set_initial_file_info(fname, '../Files/FS.txt', '../Files/SFS.txt')
     FileInfo.time_info = open('../Files/time_info.txt' , 'w')
