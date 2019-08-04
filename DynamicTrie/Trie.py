@@ -176,12 +176,12 @@ class Trie():
             curNode.updateflag = False
             if curNode.supportValue + Variable.eps >= ThresholdCalculation.get_wgt_exp_sup():
                 FileInfo.fs.write(curSeq)
-                FileInfo.fs.write(' ')
+                FileInfo.fs.write(':')
                 FileInfo.fs.write(str(curNode.supportValue))
                 FileInfo.fs.write('\n')
             else:
                 FileInfo.sfs.write(curSeq)
-                FileInfo.sfs.write(' ')
+                FileInfo.sfs.write(':')
                 FileInfo.sfs.write(str(curNode.supportValue))
                 FileInfo.sfs.write('\n')
         for dscnt in curNode.descendants.values():

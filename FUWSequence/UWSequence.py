@@ -19,6 +19,7 @@ class UWSequence():
         pass
 
     def douWSequence(self):
+        print('Threshold: ', ThresholdCalculation.get_wgt_exp_sup(), ThresholdCalculation.get_semi_wgt_exp_sup(), ' at uWSeq')
         allItmDic = self.determination_projection()
         for item in allItmDic:
             sWeight, maxPr, wExpSupTop, prjSDB = allItmDic[item]

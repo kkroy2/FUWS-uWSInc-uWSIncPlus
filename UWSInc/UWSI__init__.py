@@ -17,12 +17,19 @@ if __name__ == '__main__':
     # take file input
     # fname = '../sign/v0/sign_pp0.txt'
     # fname = '../Files/dataset.txt'
-    fname = '../LEVIATHAN/v0/LEVIATHAN_v0_pp0.txt'
 
-    UserDefined.min_sup = 0.1
+    prefix_all = '../LEVIATHAN/v1'
+    prefix = prefix_all + '/LEVIATHAN_v1_pp'
+    num_of_increment = 9
+
+    UserDefined.min_sup = 0.2
     UserDefined.wgt_factor = 0.8
-    FileInfo.set_initial_file_info(fname, '../Files/FS.txt', '../Files/SFS.txt')
-    FileInfo.time_info = open('../Files/time_info.txt' , 'w')
+    Variable.mu = 0.6
+
+    fname = prefix_all + '/LEVIATHAN_v1_pp0.txt'
+    FileInfo.set_initial_file_info(fname, prefix_all+'/fs0.txt', prefix_all+'/sfs0.txt')
+    FileInfo.time_info = open(prefix_all+'/time_info_v0.txt', 'w')
+
     start_time = time.time()
     # preprocess the input file
     PreProcess().doProcess()
@@ -31,7 +38,6 @@ if __name__ == '__main__':
     wgt_assign_obj = WeightAssign()
     wgt_assign_obj.assign(ProgramVariable.itemList)
     WAMCalculation.update_WAM()
-    Variable.mu = 0.6
 
     Variable.size_of_dataset = len(ProgramVariable.uSDB)
     fsfss_trie_root_node = UWSequence().douWSequence()
@@ -40,22 +46,26 @@ if __name__ == '__main__':
     fsfss_trie.trie_into_file(fsfss_trie.root_node, '')
     FileInfo.fs.write('\n \n')
     FileInfo.sfs.write('\n \n')
-    prefix = '../LEVIATHAN/v0/LEVIATHAN_v0_pp'
+
+
     cur_time = time.time()
     FileInfo.time_info.write(str(cur_time-previous_time))
     FileInfo.time_info.write('\n')
     previous_time = time.time()
-
+    FileInfo.sfs.close()
+    FileInfo.fs.close()
     uwsinc = uWSInc(fsfss_trie, )
-    for i in range(1, 11):
+    for i in range(1, num_of_increment):
+        FileInfo.fs = open(prefix_all+'/fs'+str(i)+'.txt','w')
+        FileInfo.sfs = open(prefix_all+'/sfs'+str(i)+'.txt', 'w')
         fname = prefix+str(i)+'.txt'
+
         IncPreProcess(fname).preProcess()
-        # print(ProgramVariable.cnt_dic)
-        # print(ProgramVariable.uSDB)
-        # print(len(ProgramVariable.uSDB), ' At here uwsi')
         wgt_assign_obj.assign(ProgramVariable.itemList)
         WAMCalculation.update_WAM()
+
         uwsinc.uWSIncMethod()
+
         cur_time = time.time()
         FileInfo.time_info.write(str(cur_time - previous_time))
         FileInfo.time_info.write('\n')
@@ -77,7 +87,8 @@ if __name__ == '__main__':
     # previous_time = time.time()
     # # print('Increment No. ', i)
 
-    FileInfo.fs.close()
-    FileInfo.sfs.close()
+        FileInfo.fs.close()
+        FileInfo.sfs.close()
     end_time = time.time()
     print(start_time, end_time, end_time-start_time)
+    FileInfo.time_info.close()

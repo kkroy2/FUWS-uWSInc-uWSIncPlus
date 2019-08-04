@@ -13,12 +13,13 @@ from DynamicTrie.Trie import Trie
 if __name__ == '__main__':
 
     # initialize user given parameters
-    UserDefined.min_sup = 0.1
+    UserDefined.min_sup = 0.2
     UserDefined.wgt_factor = 0.8
+    Variable.mu = 0.5
 
     # initialize file info
     FileInfo.initial_dataset = open('../LEVIATHAN/LEVIATHAN_sp.txt', 'r')
-    FileInfo.fs = open('../Files/initialFS.txt', 'w')
+    FileInfo.fs = open('../Files/initialFS2.csv', 'w')
     FileInfo.sfs = open('../Files/initialSFS.txt', 'w')
 
     # Dataset Preprocessing
@@ -35,13 +36,14 @@ if __name__ == '__main__':
 
     #WAM calculation && DataBase size update
     WAMCalculation.update_WAM()
-    Variable.mu = 0.6
+
     Variable.size_of_dataset = len(ProgramVariable.uSDB)
     print(Variable.size_of_dataset, ' size of dataset')
     print('WAM Done')
     start_time = time.time()
     root_node = UWSequence().douWSequence()
     fssfs_trie = Trie(root_node)
+    fssfs_trie.update_trie(fssfs_trie.root_node)
     fssfs_trie.trie_into_file(fssfs_trie.root_node, '')
 
     FileInfo.fs.close()

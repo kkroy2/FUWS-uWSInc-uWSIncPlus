@@ -7,11 +7,10 @@ class ProbabilityAssign():
     probsFile = None
     whereToWrite = None
 
-    def __init__(self, datafile, probsfile, where):
-        self.whereToWrite = open(where, 'w')
-        self.probsFile = open(probsfile, 'r')
-        self.dataFile = open(datafile, 'r')
-
+    def __init__(self):
+        # self.whereToWrite = open(where, 'w')
+        # self.probsFile = open(probsfile, 'r')
+        # self.dataFile = open(datafile, 'r')
         pass
 
     def Assigning(self):
@@ -51,6 +50,8 @@ class ProbabilityAssign():
                         item = ''
                 else:
                     item += ch
+        self.whereToWrite.close()
+        return
 
 
 class WeightAssign():
