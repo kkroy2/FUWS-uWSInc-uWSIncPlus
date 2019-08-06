@@ -35,7 +35,7 @@ if __name__=='__main__':
 
         print("______________________Same Event Probability______________________",sameEventProb)
 
-        fname = "../Files" + "/datasetStudy"+ str(sameEventProb) +".csv"
+        fname = "../zFiles" + "/datasetStudy"+ str(sameEventProb) +".csv"
         if not os.path.exists(os.path.dirname(fname)):
             try:
                 os.makedirs(os.path.dirname(fname))

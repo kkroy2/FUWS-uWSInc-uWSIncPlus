@@ -102,7 +102,7 @@ class SeqDatabase:
         # outFile = input("Output file name (grouped, multi-length events) : ")
 
         outFilename = self.datasetName+"_s.txt"
-        fileLocation = "../Files/"+self.datasetName+str(sameEventProbability)+"/"+outFilename
+        fileLocation = "../zFiles/"+self.datasetName+str(sameEventProbability)+"/"+outFilename
         if not os.path.exists(os.path.dirname(fileLocation)):
             try:
                 os.makedirs(os.path.dirname(fileLocation))
@@ -154,7 +154,7 @@ class SeqDatabase:
         numPartitions = []
 
         dns = self.datasetName.split("/")
-        dn = '../Files/'+dns[2]
+        dn = '../zFiles/'+dns[2]
         # dn = dns[len(dns)-1]
         # if dn.endswith(".txt"):
         #     dn = dn.replace(".txt","")
@@ -172,8 +172,8 @@ class SeqDatabase:
                 high = math.floor(dbSize*0.10)
                 r = int(random.randrange(low,high))
             else: #large inc
-                low = math.floor(dbSize * 0.30)
-                high = math.floor(dbSize * 0.60)
+                low = math.floor(dbSize * 0.50)
+                high = math.floor(dbSize * 0.80)
                 r = int(random.randrange(low, high))
             return r
 
