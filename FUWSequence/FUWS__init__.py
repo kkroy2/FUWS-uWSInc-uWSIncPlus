@@ -15,12 +15,13 @@ if __name__ == '__main__':
     # initialize user given parameters
     UserDefined.min_sup = 0.2
     UserDefined.wgt_factor = 0.8
-    Variable.mu = 0.5
+    Variable.mu = .5
 
     # initialize file info
-    FileInfo.initial_dataset = open('../LEVIATHAN/LEVIATHAN_sp.txt', 'r')
-    FileInfo.fs = open('../Files/initialFS2.csv', 'w')
-    FileInfo.sfs = open('../Files/initialSFS.txt', 'w')
+    prefix = '../Files/Test/signDB.txt'
+    FileInfo.initial_dataset = open(prefix+'/accidents_seq_sp.txt', 'r')
+    FileInfo.fs = open(prefix+'/initialFS.txt', 'w')
+    FileInfo.sfs = open(prefix+'/initialSFS.txt', 'w')
 
     # Dataset Preprocessing
     PreProcess().doProcess()

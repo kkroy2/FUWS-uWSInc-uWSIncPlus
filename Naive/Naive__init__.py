@@ -25,12 +25,12 @@ def update_database_init(saveFROM, saveTO):
 
 if __name__ == '__main__':
     # initialize user given parameters
-    prefix_all = '../LEVIATHAN/v3'
-    number_of_increment = 5
+    prefix_all = '../Files/FIFA80/v2'
+    number_of_increment = 10
 
-    UserDefined.min_sup = 0.2
+    UserDefined.min_sup = 0.08
     UserDefined.wgt_factor = 0.8
-    Variable.mu = 0.8
+    Variable.mu = 0.75
 
     FileInfo.time_info = open(prefix_all+'/time_info_naive.txt', 'w')
     start_time = time.time()
@@ -40,9 +40,9 @@ if __name__ == '__main__':
     for i in range(0, number_of_increment):
     # initialize file info
         previous_time = time.time()
-        FileInfo.initial_dataset = open(prefix_all+'/LEVIATHAN_v3_pp'+str(i)+'.txt', 'r')
-        FileInfo.fs = open(prefix_all+'/fs_naive'+str(i)+'.csv', 'w')
-        FileInfo.sfs = open(prefix_all+'/sfs_naive'+str(i)+'.csv', 'w')
+        FileInfo.initial_dataset = open(prefix_all+'/FIFA80_p'+str(i)+'.txt', 'r')
+        FileInfo.fs = open(prefix_all+'/fs_naive'+str(i)+'.txt', 'w')
+        FileInfo.sfs = open(prefix_all+'/sfs_naive'+str(i)+'.txt', 'w')
 
     # Dataset Preprocessing
         PreProcess().doProcess()

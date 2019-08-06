@@ -18,7 +18,7 @@ class UWSProcess():
         allItmDic = self.DetermineProjection(pSDB, cur_itm_set, False)
         # False means it is for Item-Extension
 
-        for item in allItmDic:
+        for item in sorted(allItmDic):
             sum_sup, imax_pro, prjSDB = allItmDic[item]
             tmp_sWgt = sWgt + float(ProgramVariable.wgt_dic.get(item))
             tmp_cur_len = curLen + 1
@@ -36,7 +36,7 @@ class UWSProcess():
         allItmDic = self.DetermineProjection(pSDB, cur_itm_set, True)
         # True means it is for Sequence-Extension
 
-        for item in allItmDic:
+        for item in sorted(allItmDic):
             sup_sum, imax_pro, prjSDB = allItmDic[item]
             tmp_cur_len = curLen + 1
             tmp_sWgt = sWgt + float(ProgramVariable.wgt_dic.get(item))
@@ -47,7 +47,7 @@ class UWSProcess():
                 tcurItmSt = []
                 tcurItmSt.append(str(item))
 
-                newNode = TrieNode(True, 'S', item, expSupportTop, False)
+                newNode = TrieNode(True, 'S', item, 0.0, False)
                 if (item, 'S') not in curNode.descendants:
                     curNode.descendants[(item, 'S')] = newNode
                 self.douWSProcess(prjSDB, newNode, copy.deepcopy(tcurItmSt), max_pr * imax_pro, tmp_sWgt, tmp_cur_len)

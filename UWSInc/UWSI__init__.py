@@ -18,17 +18,17 @@ if __name__ == '__main__':
     # fname = '../sign/v0/sign_pp0.txt'
     # fname = '../Files/dataset.txt'
 
-    prefix_all = '../LEVIATHAN/v1'
-    prefix = prefix_all + '/LEVIATHAN_v1_pp'
-    num_of_increment = 9
+    prefix_all = '../Files/FIFA80/v2'
+    prefix = prefix_all + '/FIFA80_p'
+    num_of_increment = 10
 
-    UserDefined.min_sup = 0.2
+    UserDefined.min_sup = 0.08
     UserDefined.wgt_factor = 0.8
-    Variable.mu = 0.6
+    Variable.mu = 0.75
 
-    fname = prefix_all + '/LEVIATHAN_v1_pp0.txt'
-    FileInfo.set_initial_file_info(fname, prefix_all+'/fs0.txt', prefix_all+'/sfs0.txt')
-    FileInfo.time_info = open(prefix_all+'/time_info_v0.txt', 'w')
+    fname = prefix+'0.txt'
+    FileInfo.set_initial_file_info(fname, prefix_all+'/fs05.txt', prefix_all+'/sfs05.txt')
+    FileInfo.time_info = open(prefix_all+'/time_info_v05.txt', 'w')
 
     start_time = time.time()
     # preprocess the input file
@@ -40,6 +40,7 @@ if __name__ == '__main__':
     WAMCalculation.update_WAM()
 
     Variable.size_of_dataset = len(ProgramVariable.uSDB)
+    # print(len(ProgramVariable.uSDB))
     fsfss_trie_root_node = UWSequence().douWSequence()
     fsfss_trie = Trie(fsfss_trie_root_node)
     fsfss_trie.update_trie(fsfss_trie.root_node)
