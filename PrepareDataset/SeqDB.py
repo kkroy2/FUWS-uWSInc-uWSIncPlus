@@ -172,8 +172,8 @@ class SeqDatabase:
                 high = math.floor(dbSize*0.10)
                 r = int(random.randrange(low,high))
             else: #large inc
-                low = math.floor(dbSize * 0.10)
-                high = math.floor(dbSize * 0.30)
+                low = math.floor(dbSize * 0.30)
+                high = math.floor(dbSize * 0.60)
                 r = int(random.randrange(low, high))
             return r
 
@@ -186,9 +186,9 @@ class SeqDatabase:
             print("__________For Type__________"+type)
 
             if type=="v0" or type=="v1": #small p_0
-                p0_size = math.floor(self.seqCount * 0.5) #50% of total uSDB
+                p0_size = math.floor(self.seqCount * 0.7) #50% of total uSDB
             else: #small p_0
-                p0_size = math.floor(self.seqCount * 0.6)
+                p0_size = math.floor(self.seqCount * 0.8)
 
             print("Initial Size (p_0): "+p0_size.__str__())
 

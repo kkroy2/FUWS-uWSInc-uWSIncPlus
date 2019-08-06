@@ -1,6 +1,6 @@
 /usr/bin/python3.6 /home/hhmoon/PycharmProjects/ThesisPhaseIV/PrepareDataset/Prep__init__.py
 ______________________Same Event Probability______________________ 50
-Serial : 0.5
+Serial : 0
 Dataset_Name : SIGN.txt
 dbSize : 730
 avglen : 51.9972602739726
@@ -16,7 +16,7 @@ maxEvLen : 1
 suggested_MinSup : 19.475 %
 *_______________________________________________*
 ../Files/SIGN50/SIGN_s.txt
-Serial : 1.0
+Serial : 1
 Dataset_Name : ../Files/SIGN50/SIGN_s.txt
 dbSize : 730
 avglen : 51.9972602739726
@@ -26,583 +26,123 @@ totalDistItem : 267
 avgDistItem : 51.9972602739726
 maxDistItem : 94
 minDistItem : 18
-avgEvPerSeq : 26.26164383561644
-avgEvLen : 2.0163504390298623
+avgEvPerSeq : 26.778082191780822
+avgEvLen : 1.9767042821234841
 maxEvLen : 15
 suggested_MinSup : 19.475 %
 *_______________________________________________*
 __________For Type__________v0
 Initial Size (p_0): 365
-p_1: 33
-p_2: 24
-p_3: 30
-p_4: 27
-p_5: 26
-p_6: 23
-p_7: 25
-p_8: 18
-p_9: 35
-p_10: 22
-p_11: 28
-p_12: 32
-p_13: 31
-p_14: 11
-#_______________________________________________#
-__________For Type__________v1
-Initial Size (p_0): 365
-p_1: 89
-p_2: 79
-p_3: 98
-p_4: 47
-p_5: 52
-#_______________________________________________#
-__________For Type__________v2
-Initial Size (p_0): 438
-p_1: 32
-p_2: 39
-p_3: 27
-p_4: 34
-p_5: 25
-p_6: 32
-p_7: 42
-p_8: 35
-p_9: 26
-#_______________________________________________#
-__________For Type__________v3
-Initial Size (p_0): 438
-p_1: 102
-p_2: 95
-p_3: 95
-#_______________________________________________#
-Serial : 1.5
-Dataset_Name : LEVIATHAN.txt
-dbSize : 5834
-avglen : 33.810593075077136
-maxLen : 100
-minLen : 9
-totalDistItem : 9025
-avgDistItem : 26.342475145697634
-maxDistItem : 72
-minDistItem : 2
-avgEvPerSeq : 33.810593075077136
-avgEvLen : 1.0
-maxEvLen : 1
-suggested_MinSup : 0.375 %
-*_______________________________________________*
-../Files/LEVIATHAN50/LEVIATHAN_s.txt
-Serial : 2.0
-Dataset_Name : ../Files/LEVIATHAN50/LEVIATHAN_s.txt
-dbSize : 5834
-avglen : 33.810593075077136
-maxLen : 100
-minLen : 9
-totalDistItem : 1000
-avgDistItem : 25.881727802536854
-maxDistItem : 71
-minDistItem : 2
-avgEvPerSeq : 17.983201919780598
-avgEvLen : 1.934102033058304
-maxEvLen : 15
-suggested_MinSup : 3.381 %
-*_______________________________________________*
-__________For Type__________v0
-Initial Size (p_0): 2917
-p_1: 223
-p_2: 162
-p_3: 150
-p_4: 176
-p_5: 165
-p_6: 279
-p_7: 203
-p_8: 263
-p_9: 177
-p_10: 166
-p_11: 177
-p_12: 199
-p_13: 231
-p_14: 183
-p_15: 163
-#_______________________________________________#
-__________For Type__________v1
-Initial Size (p_0): 2917
-p_1: 795
-p_2: 792
-p_3: 780
-p_4: 400
-p_5: 150
-#_______________________________________________#
-__________For Type__________v2
-Initial Size (p_0): 3500
-p_1: 176
-p_2: 270
-p_3: 235
-p_4: 316
-p_5: 199
-p_6: 248
-p_7: 307
-p_8: 259
-p_9: 324
-#_______________________________________________#
-__________For Type__________v3
-Initial Size (p_0): 3500
-p_1: 929
-p_2: 532
-p_3: 678
-p_4: 195
-#_______________________________________________#
-______________________Same Event Probability______________________ 60
-Serial : 2.5
-Dataset_Name : SIGN.txt
-dbSize : 730
-avglen : 51.9972602739726
-maxLen : 94
-minLen : 18
-totalDistItem : 267
-avgDistItem : 51.9972602739726
-maxDistItem : 94
-minDistItem : 18
-avgEvPerSeq : 51.9972602739726
-avgEvLen : 1.0
-maxEvLen : 1
-suggested_MinSup : 19.475 %
-*_______________________________________________*
-../Files/SIGN60/SIGN_s.txt
-Serial : 3.0
-Dataset_Name : ../Files/SIGN60/SIGN_s.txt
-dbSize : 730
-avglen : 51.9972602739726
-maxLen : 94
-minLen : 18
-totalDistItem : 267
-avgDistItem : 51.9972602739726
-maxDistItem : 94
-minDistItem : 18
-avgEvPerSeq : 21.382191780821916
-avgEvLen : 2.509240868725818
-maxEvLen : 19
-suggested_MinSup : 19.475 %
-*_______________________________________________*
-__________For Type__________v0
-Initial Size (p_0): 365
-p_1: 35
+p_1: 29
 p_2: 21
-p_3: 27
-p_4: 22
-p_5: 23
-p_6: 35
-p_7: 20
-p_8: 31
-p_9: 28
-p_10: 28
-p_11: 18
-p_12: 19
-p_13: 27
-p_14: 31
-#_______________________________________________#
-__________For Type__________v1
-Initial Size (p_0): 365
-p_1: 61
-p_2: 49
-p_3: 59
-p_4: 88
-p_5: 108
-#_______________________________________________#
-__________For Type__________v2
-Initial Size (p_0): 438
-p_1: 30
-p_2: 38
-p_3: 30
-p_4: 31
-p_5: 40
-p_6: 28
-p_7: 32
-p_8: 40
-p_9: 23
-#_______________________________________________#
-__________For Type__________v3
-Initial Size (p_0): 438
-p_1: 60
-p_2: 66
-p_3: 55
-p_4: 57
-p_5: 54
-#_______________________________________________#
-Serial : 3.5
-Dataset_Name : LEVIATHAN.txt
-dbSize : 5834
-avglen : 33.810593075077136
-maxLen : 100
-minLen : 9
-totalDistItem : 9025
-avgDistItem : 26.342475145697634
-maxDistItem : 72
-minDistItem : 2
-avgEvPerSeq : 33.810593075077136
-avgEvLen : 1.0
-maxEvLen : 1
-suggested_MinSup : 0.375 %
-*_______________________________________________*
-../Files/LEVIATHAN60/LEVIATHAN_s.txt
-Serial : 4.0
-Dataset_Name : ../Files/LEVIATHAN60/LEVIATHAN_s.txt
-dbSize : 5834
-avglen : 33.810593075077136
-maxLen : 100
-minLen : 9
-totalDistItem : 1000
-avgDistItem : 25.881727802536854
-maxDistItem : 71
-minDistItem : 2
-avgEvPerSeq : 14.923723003085362
-avgEvLen : 2.348248704284287
-maxEvLen : 17
-suggested_MinSup : 3.381 %
-*_______________________________________________*
-__________For Type__________v0
-Initial Size (p_0): 2917
-p_1: 234
-p_2: 179
-p_3: 197
-p_4: 154
-p_5: 234
-p_6: 222
-p_7: 208
-p_8: 174
-p_9: 286
-p_10: 269
-p_11: 152
-p_12: 220
-p_13: 222
-p_14: 166
-#_______________________________________________#
-__________For Type__________v1
-Initial Size (p_0): 2917
-p_1: 345
-p_2: 711
-p_3: 295
-p_4: 332
-p_5: 833
-p_6: 401
-#_______________________________________________#
-__________For Type__________v2
-Initial Size (p_0): 3500
-p_1: 176
-p_2: 275
-p_3: 283
-p_4: 320
-p_5: 198
-p_6: 300
-p_7: 341
-p_8: 250
-p_9: 191
-#_______________________________________________#
-__________For Type__________v3
-Initial Size (p_0): 3500
-p_1: 798
-p_2: 1031
-p_3: 505
-#_______________________________________________#
-______________________Same Event Probability______________________ 65
-Serial : 4.5
-Dataset_Name : SIGN.txt
-dbSize : 730
-avglen : 51.9972602739726
-maxLen : 94
-minLen : 18
-totalDistItem : 267
-avgDistItem : 51.9972602739726
-maxDistItem : 94
-minDistItem : 18
-avgEvPerSeq : 51.9972602739726
-avgEvLen : 1.0
-maxEvLen : 1
-suggested_MinSup : 19.475 %
-*_______________________________________________*
-../Files/SIGN65/SIGN_s.txt
-Serial : 5.0
-Dataset_Name : ../Files/SIGN65/SIGN_s.txt
-dbSize : 730
-avglen : 51.9972602739726
-maxLen : 94
-minLen : 18
-totalDistItem : 267
-avgDistItem : 51.9972602739726
-maxDistItem : 94
-minDistItem : 18
-avgEvPerSeq : 19.145205479452056
-avgEvLen : 2.820744472412347
-maxEvLen : 26
-suggested_MinSup : 19.475 %
-*_______________________________________________*
-__________For Type__________v0
-Initial Size (p_0): 365
-p_1: 26
-p_2: 20
-p_3: 24
-p_4: 25
-p_5: 18
-p_6: 23
-p_7: 27
-p_8: 29
-p_9: 26
-p_10: 32
-p_11: 25
-p_12: 33
-p_13: 24
-p_14: 18
-p_15: 15
-#_______________________________________________#
-__________For Type__________v1
-Initial Size (p_0): 365
-p_1: 96
-p_2: 83
-p_3: 96
-p_4: 39
-p_5: 51
-#_______________________________________________#
-__________For Type__________v2
-Initial Size (p_0): 438
-p_1: 40
-p_2: 30
-p_3: 30
-p_4: 34
-p_5: 42
-p_6: 27
-p_7: 36
-p_8: 22
-p_9: 31
-#_______________________________________________#
-__________For Type__________v3
-Initial Size (p_0): 438
-p_1: 59
-p_2: 47
-p_3: 90
-p_4: 76
-p_5: 20
-#_______________________________________________#
-Serial : 5.5
-Dataset_Name : LEVIATHAN.txt
-dbSize : 5834
-avglen : 33.810593075077136
-maxLen : 100
-minLen : 9
-totalDistItem : 9025
-avgDistItem : 26.342475145697634
-maxDistItem : 72
-minDistItem : 2
-avgEvPerSeq : 33.810593075077136
-avgEvLen : 1.0
-maxEvLen : 1
-suggested_MinSup : 0.375 %
-*_______________________________________________*
-../Files/LEVIATHAN65/LEVIATHAN_s.txt
-Serial : 6.0
-Dataset_Name : ../Files/LEVIATHAN65/LEVIATHAN_s.txt
-dbSize : 5834
-avglen : 33.810593075077136
-maxLen : 100
-minLen : 9
-totalDistItem : 1000
-avgDistItem : 25.881727802536854
-maxDistItem : 71
-minDistItem : 2
-avgEvPerSeq : 13.440349674322935
-avgEvLen : 2.6332580835945216
-maxEvLen : 17
-suggested_MinSup : 3.381 %
-*_______________________________________________*
-__________For Type__________v0
-Initial Size (p_0): 2917
-p_1: 221
-p_2: 238
-p_3: 276
-p_4: 202
-p_5: 274
-p_6: 192
-p_7: 201
-p_8: 270
-p_9: 283
-p_10: 235
-p_11: 203
-p_12: 150
-p_13: 172
-#_______________________________________________#
-__________For Type__________v1
-Initial Size (p_0): 2917
-p_1: 829
-p_2: 468
-p_3: 812
-p_4: 808
-#_______________________________________________#
-__________For Type__________v2
-Initial Size (p_0): 3500
-p_1: 214
-p_2: 324
-p_3: 175
-p_4: 239
-p_5: 188
-p_6: 341
-p_7: 263
-p_8: 232
-p_9: 192
-p_10: 166
-#_______________________________________________#
-__________For Type__________v3
-Initial Size (p_0): 3500
-p_1: 932
-p_2: 1021
-p_3: 381
-#_______________________________________________#
-______________________Same Event Probability______________________ 70
-Serial : 6.5
-Dataset_Name : SIGN.txt
-dbSize : 730
-avglen : 51.9972602739726
-maxLen : 94
-minLen : 18
-totalDistItem : 267
-avgDistItem : 51.9972602739726
-maxDistItem : 94
-minDistItem : 18
-avgEvPerSeq : 51.9972602739726
-avgEvLen : 1.0
-maxEvLen : 1
-suggested_MinSup : 19.475 %
-*_______________________________________________*
-../Files/SIGN70/SIGN_s.txt
-Serial : 7.0
-Dataset_Name : ../Files/SIGN70/SIGN_s.txt
-dbSize : 730
-avglen : 51.9972602739726
-maxLen : 94
-minLen : 18
-totalDistItem : 267
-avgDistItem : 51.9972602739726
-maxDistItem : 94
-minDistItem : 18
-avgEvPerSeq : 16.161643835616438
-avgEvLen : 3.3432331434785656
-maxEvLen : 23
-suggested_MinSup : 19.475 %
-*_______________________________________________*
-__________For Type__________v0
-Initial Size (p_0): 365
-p_1: 21
-p_2: 18
 p_3: 31
-p_4: 23
-p_5: 20
+p_4: 20
+p_5: 27
 p_6: 24
-p_7: 26
-p_8: 24
-p_9: 23
-p_10: 26
-p_11: 35
-p_12: 35
-p_13: 25
-p_14: 23
-p_15: 11
+p_7: 31
+p_8: 26
+p_9: 28
+p_10: 27
+p_11: 25
+p_12: 24
+p_13: 24
+p_14: 28
 #_______________________________________________#
 __________For Type__________v1
 Initial Size (p_0): 365
-p_1: 106
-p_2: 59
-p_3: 90
-p_4: 56
-p_5: 54
+p_1: 186
+p_2: 179
 #_______________________________________________#
 __________For Type__________v2
 Initial Size (p_0): 438
-p_1: 22
-p_2: 40
-p_3: 28
-p_4: 35
-p_5: 42
-p_6: 33
-p_7: 26
-p_8: 38
-p_9: 28
+p_1: 42
+p_2: 32
+p_3: 37
+p_4: 26
+p_5: 29
+p_6: 26
+p_7: 29
+p_8: 42
+p_9: 29
 #_______________________________________________#
 __________For Type__________v3
 Initial Size (p_0): 438
-p_1: 110
-p_2: 109
-p_3: 73
+p_1: 151
+p_2: 141
 #_______________________________________________#
-Serial : 7.5
-Dataset_Name : LEVIATHAN.txt
-dbSize : 5834
-avglen : 33.810593075077136
+Serial : 1
+Dataset_Name : BIBLE.txt
+dbSize : 36369
+avglen : 21.641122934367182
 maxLen : 100
 minLen : 9
-totalDistItem : 9025
-avgDistItem : 26.342475145697634
-maxDistItem : 72
-minDistItem : 2
-avgEvPerSeq : 33.810593075077136
+totalDistItem : 13905
+avgDistItem : 17.845527784651765
+maxDistItem : 77
+minDistItem : 6
+avgEvPerSeq : 21.641122934367182
 avgEvLen : 1.0
 maxEvLen : 1
-suggested_MinSup : 0.375 %
+suggested_MinSup : 0.156 %
 *_______________________________________________*
-../Files/LEVIATHAN70/LEVIATHAN_s.txt
-Serial : 8.0
-Dataset_Name : ../Files/LEVIATHAN70/LEVIATHAN_s.txt
-dbSize : 5834
-avglen : 33.810593075077136
+../Files/BIBLE50/BIBLE_s.txt
+Serial : 2
+Dataset_Name : ../Files/BIBLE50/BIBLE_s.txt
+dbSize : 36369
+avglen : 21.641122934367182
 maxLen : 100
 minLen : 9
 totalDistItem : 1000
-avgDistItem : 25.881727802536854
-maxDistItem : 71
-minDistItem : 2
-avgEvPerSeq : 11.857730545080562
-avgEvLen : 3.013731382116466
-maxEvLen : 22
-suggested_MinSup : 3.381 %
+avgDistItem : 17.701971459209766
+maxDistItem : 76
+minDistItem : 6
+avgEvPerSeq : 11.509472352827958
+avgEvLen : 1.959423792000085
+maxEvLen : 15
+suggested_MinSup : 2.164 %
 *_______________________________________________*
 __________For Type__________v0
-Initial Size (p_0): 2917
-p_1: 279
-p_2: 245
-p_3: 279
-p_4: 220
-p_5: 156
-p_6: 216
-p_7: 201
-p_8: 198
-p_9: 219
-p_10: 270
-p_11: 218
-p_12: 174
-p_13: 242
+Initial Size (p_0): 18184
+p_1: 1486
+p_2: 1594
+p_3: 1696
+p_4: 1534
+p_5: 1295
+p_6: 1762
+p_7: 1058
+p_8: 1506
+p_9: 937
+p_10: 1216
+p_11: 1159
+p_12: 1347
+p_13: 1595
 #_______________________________________________#
 __________For Type__________v1
-Initial Size (p_0): 2917
-p_1: 531
-p_2: 572
-p_3: 397
-p_4: 506
-p_5: 911
+Initial Size (p_0): 18184
+p_1: 6710
+p_2: 10698
+p_3: 777
 #_______________________________________________#
 __________For Type__________v2
-Initial Size (p_0): 3500
-p_1: 337
-p_2: 244
-p_3: 346
-p_4: 327
-p_5: 306
-p_6: 335
-p_7: 209
-p_8: 230
+Initial Size (p_0): 21821
+p_1: 2102
+p_2: 1235
+p_3: 1389
+p_4: 1129
+p_5: 1627
+p_6: 1629
+p_7: 1420
+p_8: 1437
+p_9: 1741
+p_10: 839
 #_______________________________________________#
 __________For Type__________v3
-Initial Size (p_0): 3500
-p_1: 828
-p_2: 661
-p_3: 845
+Initial Size (p_0): 21821
+p_1: 10390
+p_2: 4158
 #_______________________________________________#
 ______________________Same Event Probability______________________ 80
-Serial : 8.5
+Serial : 2
 Dataset_Name : SIGN.txt
 dbSize : 730
 avglen : 51.9972602739726
@@ -618,7 +158,7 @@ maxEvLen : 1
 suggested_MinSup : 19.475 %
 *_______________________________________________*
 ../Files/SIGN80/SIGN_s.txt
-Serial : 9.0
+Serial : 3
 Dataset_Name : ../Files/SIGN80/SIGN_s.txt
 dbSize : 730
 avglen : 51.9972602739726
@@ -628,130 +168,122 @@ totalDistItem : 267
 avgDistItem : 51.9972602739726
 maxDistItem : 94
 minDistItem : 18
-avgEvPerSeq : 11.112328767123287
-avgEvLen : 5.067887771977666
-maxEvLen : 35
+avgEvPerSeq : 11.217808219178082
+avgEvLen : 5.081167168338538
+maxEvLen : 45
 suggested_MinSup : 19.475 %
 *_______________________________________________*
 __________For Type__________v0
 Initial Size (p_0): 365
-p_1: 20
-p_2: 29
-p_3: 21
-p_4: 25
-p_5: 26
-p_6: 34
-p_7: 21
-p_8: 33
-p_9: 22
-p_10: 24
-p_11: 27
-p_12: 19
-p_13: 22
-p_14: 18
-p_15: 24
+p_1: 28
+p_2: 24
+p_3: 33
+p_4: 31
+p_5: 19
+p_6: 19
+p_7: 20
+p_8: 29
+p_9: 26
+p_10: 18
+p_11: 31
+p_12: 28
+p_13: 20
+p_14: 22
+p_15: 17
 #_______________________________________________#
 __________For Type__________v1
 Initial Size (p_0): 365
-p_1: 67
-p_2: 65
-p_3: 58
-p_4: 69
-p_5: 106
+p_1: 119
+p_2: 148
+p_3: 98
 #_______________________________________________#
 __________For Type__________v2
 Initial Size (p_0): 438
-p_1: 26
-p_2: 21
-p_3: 22
-p_4: 28
-p_5: 38
-p_6: 29
-p_7: 25
-p_8: 31
-p_9: 34
-p_10: 38
+p_1: 41
+p_2: 26
+p_3: 24
+p_4: 29
+p_5: 34
+p_6: 23
+p_7: 36
+p_8: 22
+p_9: 38
+p_10: 19
 #_______________________________________________#
 __________For Type__________v3
 Initial Size (p_0): 438
-p_1: 65
-p_2: 82
-p_3: 128
-p_4: 17
+p_1: 192
+p_2: 100
 #_______________________________________________#
-Serial : 9.5
-Dataset_Name : LEVIATHAN.txt
-dbSize : 5834
-avglen : 33.810593075077136
+Serial : 3
+Dataset_Name : BIBLE.txt
+dbSize : 36369
+avglen : 21.641122934367182
 maxLen : 100
 minLen : 9
-totalDistItem : 9025
-avgDistItem : 26.342475145697634
-maxDistItem : 72
-minDistItem : 2
-avgEvPerSeq : 33.810593075077136
+totalDistItem : 13905
+avgDistItem : 17.845527784651765
+maxDistItem : 77
+minDistItem : 6
+avgEvPerSeq : 21.641122934367182
 avgEvLen : 1.0
 maxEvLen : 1
-suggested_MinSup : 0.375 %
+suggested_MinSup : 0.156 %
 *_______________________________________________*
-../Files/LEVIATHAN80/LEVIATHAN_s.txt
-Serial : 10.0
-Dataset_Name : ../Files/LEVIATHAN80/LEVIATHAN_s.txt
-dbSize : 5834
-avglen : 33.810593075077136
+../Files/BIBLE80/BIBLE_s.txt
+Serial : 4
+Dataset_Name : ../Files/BIBLE80/BIBLE_s.txt
+dbSize : 36369
+avglen : 21.641122934367182
 maxLen : 100
 minLen : 9
 totalDistItem : 1000
-avgDistItem : 25.881727802536854
-maxDistItem : 71
-minDistItem : 2
-avgEvPerSeq : 9.143126499828591
-avgEvLen : 3.9873311396162996
-maxEvLen : 27
-suggested_MinSup : 3.381 %
+avgDistItem : 17.701971459209766
+maxDistItem : 76
+minDistItem : 6
+avgEvPerSeq : 5.914020182023152
+avgEvLen : 4.028735931191793
+maxEvLen : 26
+suggested_MinSup : 2.164 %
 *_______________________________________________*
 __________For Type__________v0
-Initial Size (p_0): 2917
-p_1: 160
-p_2: 240
-p_3: 210
-p_4: 239
-p_5: 285
-p_6: 249
-p_7: 187
-p_8: 282
-p_9: 147
-p_10: 267
-p_11: 148
-p_12: 156
-p_13: 194
-p_14: 153
+Initial Size (p_0): 18184
+p_1: 975
+p_2: 1054
+p_3: 1277
+p_4: 1250
+p_5: 1148
+p_6: 1699
+p_7: 1641
+p_8: 1735
+p_9: 1577
+p_10: 1177
+p_11: 1573
+p_12: 1298
+p_13: 1781
 #_______________________________________________#
 __________For Type__________v1
-Initial Size (p_0): 2917
-p_1: 774
-p_2: 582
-p_3: 608
-p_4: 371
-p_5: 582
+Initial Size (p_0): 18184
+p_1: 5635
+p_2: 10455
+p_3: 2095
 #_______________________________________________#
 __________For Type__________v2
-Initial Size (p_0): 3500
-p_1: 225
-p_2: 271
-p_3: 326
-p_4: 315
-p_5: 291
-p_6: 275
-p_7: 236
-p_8: 395
+Initial Size (p_0): 21821
+p_1: 1247
+p_2: 1542
+p_3: 1906
+p_4: 1649
+p_5: 1262
+p_6: 1547
+p_7: 1836
+p_8: 2075
+p_9: 1484
 #_______________________________________________#
 __________For Type__________v3
-Initial Size (p_0): 3500
-p_1: 406
-p_2: 951
-p_3: 637
-p_4: 340
+Initial Size (p_0): 21821
+p_1: 10433
+p_2: 4115
 #_______________________________________________#
 
 Process finished with exit code 0

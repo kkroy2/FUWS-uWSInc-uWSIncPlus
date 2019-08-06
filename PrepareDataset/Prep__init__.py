@@ -11,28 +11,27 @@ if __name__=='__main__':
     datasets = [
                 "SIGN.txt"
                 ,"LEVIATHAN.txt"
-                ,"BIBLE.txt"
-                ,"FIFA.txt"
+                # ,"BIBLE.txt"
+                # ,"FIFA.txt"
                 # ,"accidents_seq.txt"
-                # ,"BMS2.txt"
+                ,"BMS2.txt"
                  ]
+
+    convertSize = [
+                    0,
+                   1000
+                   # ,1500
+                   # ,300
+                   # ,0
+                   ,400
+                   ]
 
     title = "Serial,Dataset_Name,dbSize,avglen,maxLen,minLen," \
                 "totalDistItem,avgDistItem,maxDistItem,minDistItem," \
                 "avgEvPerSeq,avgEvLen,maxEvLen," \
                 "suggested_MinSup"
 
-
-
-    convertSize = [0
-                   ,1000
-                   ,1500
-                   ,300
-                   ,0
-                   ,400
-                   ]
-
-    for sameEventProb in [50, 60, 65, 70, 80]:
+    for sameEventProb in [50, 80]:
 
         print("______________________Same Event Probability______________________",sameEventProb)
 
@@ -66,7 +65,12 @@ if __name__=='__main__':
             probs = '../Files/probs.csv'
             read = newFile
             with_prob = newFile.replace(".txt", "p.txt")
-            ProbabilityAssign(read, probs, with_prob).Assigning()
+            # ProbabilityAssign(read, probs, with_prob).Assigning()
+            PA = ProbabilityAssign()
+            PA.probsFile = open(probs, 'r')
+            PA.whereToWrite = open(with_prob, 'w')
+            PA.dataFile = open(read, 'r')
+            PA.Assigning()
 
             numPartitions = newSDB.autoPartition(with_prob)
 
