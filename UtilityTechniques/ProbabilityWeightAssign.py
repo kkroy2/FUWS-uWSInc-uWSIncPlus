@@ -62,10 +62,11 @@ class WeightAssign():
         WeightAssign.wgt_file.seek(WeightAssign.current_point)
         for itm in itms:
             if itm not in ProgramVariable.wgt_dic:
-                wgt = float(WeightAssign.wgt_file.readline().strip())
+                wgt = WeightAssign.wgt_file.readline().strip()
                 if wgt == "":
                     WeightAssign.wgt_file.seek(0)
-                    wgt = float(WeightAssign.wgt_file.readline().strip())
+                    wgt = WeightAssign.wgt_file.readline().strip()
+                wgt = float(wgt)
                 ProgramVariable.wgt_dic[itm] = wgt
                 WeightAssign.current_point = WeightAssign.wgt_file.tell()
 

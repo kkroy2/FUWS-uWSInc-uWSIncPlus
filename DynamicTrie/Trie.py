@@ -19,12 +19,6 @@ class Trie():
         self.cur_ls_trie = lstrie
         return
 
-    # def openFile(self):
-    #     self.FSwhereToWrite.op
-
-    # def buildTrie(self):
-    #     return
-
     def update_support(self, cur_node, cur_arr, cur_swgt, cur_ln, cur_trn):
         tmp_cur_ln = 0.0
         tmp_root_node = None
@@ -55,6 +49,7 @@ class Trie():
                     tmp_seq_wgt += float(ProgramVariable.wgt_dic.get(dscnt.label))
                     tmp_cur_ln += 1
                     dscnt.supportValue += (mx * tmp_seq_wgt) / float(tmp_cur_ln)
+
                 elif dscnt.extnType == 'S':
                     self.imp_root_node = tmp_root_node
                     tmp_array = self.forSeqExtn(dscnt.label, cur_trn)
@@ -64,6 +59,7 @@ class Trie():
                     tmp_seq_wgt += float(ProgramVariable.wgt_dic.get(dscnt.label))
                     tmp_cur_ln += 1
                     dscnt.supportValue += (mx * tmp_seq_wgt)/float(tmp_cur_ln)
+
             self.update_support(dscnt, tmp_array,tmp_seq_wgt, tmp_cur_ln, cur_trn)
 
     def traverse_trie(self, cur_node):
@@ -84,17 +80,25 @@ class Trie():
                 cur_node.descendants[dscnt_key] = dscnt_value
         return len(cur_node.descendants) + cur_node.marker
 
-    def merge_two_ls_trie(self, cur_node_pre, cur_node_cur):
-        # print('\n printing at merge two ls trie.........\n')
-        cur_node_cur.supportValue += cur_node_pre.supportValue
-        for dscnt in cur_node_pre.descendants:
-            if dscnt in cur_node_cur.descendants:
-                self.merge_two_ls_trie(cur_node_pre.descendants[dscnt], cur_node_cur.descendants[dscnt])
-        return
+    # def merge_pre_ls_trie_with_fssfs(self, cur_node_pre, cur_node_cur):
+    #     cur_node_cur.supportValue = cur_node_pre.supportValue
+    #     for dscnt in cur_node_pre.descendants:
+    #         if dscnt not in cur_node_cur.descendants:
+    #             new_node = TrieNode(cur_node_pre.marker, cur_node_pre.extnType, cur_node_pre.label,
+    #                                 cur_node_pre.supportValue, False)
+    #             cur_node_cur[dscnt] = new_node
+    #             self.merge_pre_ls_trie_with_fssfs(cur_node_pre.descendants[dscnt], cur_node_cur.descendants[dscnt])
+    #     return
+    #
+    # def merge_two_ls_trie(self, cur_node_pre, cur_node_cur):
+    #     # print('\n printing at merge two ls trie.........\n')
+    #     cur_node_cur.supportValue += cur_node_pre.supportValue
+    #     for dscnt in cur_node_pre.descendants:
+    #         if dscnt in cur_node_cur.descendants:
+    #             self.merge_two_ls_trie(cur_node_pre.descendants[dscnt], cur_node_cur.descendants[dscnt])
+    #     return
 
     def merge_ls_with_fssfs_trie(self, cur_node_ls, cur_node_fssfs):
-        cur_node_ls.supportValue = 0
-        cur_node_ls.marker = False
         for dscnt in cur_node_ls.descendants:
             if dscnt in cur_node_fssfs.descendants:
                 self.merge_ls_with_fssfs_trie(cur_node_ls.descendants[dscnt], cur_node_fssfs.descendants[dscnt])
@@ -172,9 +176,11 @@ class Trie():
             curSeq = curSeq[:len(curSeq) - 1] + ', '+ curNode.label + ')'
         elif curNode.label is not None:
             curSeq = curSeq + '(' + curNode.label + ')'
+        tmp_count = 0
         if curNode.marker:
             curNode.updateflag = False
             if curNode.supportValue + Variable.eps >= ThresholdCalculation.get_wgt_exp_sup():
+                tmp_count += 1
                 FileInfo.fs.write(curSeq)
                 FileInfo.fs.write(':')
                 FileInfo.fs.write(str(curNode.supportValue))
@@ -185,8 +191,8 @@ class Trie():
                 FileInfo.sfs.write(str(curNode.supportValue))
                 FileInfo.sfs.write('\n')
         for dscnt in curNode.descendants.values():
-            self.trie_into_file(dscnt, curSeq)
-        return
+            tmp_count += self.trie_into_file(dscnt, curSeq)
+        return tmp_count
 
     def trieIntoFilePS(self, curNode, curSeq):
         if curNode.extnType == 'I' and curNode.label is not None:
@@ -215,15 +221,17 @@ class Trie():
 
     def printPFS(self, curNode, curSeq):
         # print('function is calling !!')
+        count = 0
         if curNode.extnType == 'I' and curNode.label is not None:
             curSeq = curSeq[:len(curSeq) - 1] + curNode.label + ')'
         elif curNode.label is not None:
             curSeq = curSeq + '(' + curNode.label + ')'
         if curNode.marker:
-            print(curSeq, " current seq with ", curNode.supportValue )
+            if curNode.supportValue >= ThresholdCalculation.get_semi_wgt_exp_sup():
+                count = 1
         for dscnt in curNode.descendants.values():
-            self.printPFS(dscnt, curSeq)
-        return
+            count += self.printPFS(dscnt, curSeq)
+        return count
 
     def updateWithInsertion(self, curNode, curSeq, i, support):
         if i == len(curSeq) - 1:
