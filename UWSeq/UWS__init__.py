@@ -5,7 +5,7 @@ from Parameters.FileInfo import FileInfo
 from Parameters.userDefined import UserDefined
 from UtilityTechniques.WAMCalculation import WAMCalculation
 from UtilityTechniques.DataPreProcessing import PreProcess
-from UWSequence.UWSequence import UWSequence
+from UWSeq.UWSequence import UWSequence
 from UtilityTechniques.ProbabilityWeightAssign import WeightAssign
 from Parameters.ProgramVariable import ProgramVariable
 from DynamicTrie.Trie import Trie

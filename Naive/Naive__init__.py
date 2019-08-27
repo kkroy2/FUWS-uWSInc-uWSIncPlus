@@ -6,7 +6,7 @@ from Parameters.userDefined import UserDefined
 from UtilityTechniques.ThresholdCalculation import ThresholdCalculation
 from UtilityTechniques.WAMCalculation import WAMCalculation
 from UtilityTechniques.DataPreProcessing import PreProcess
-from FUWSequence.FUWSequence import FUWSequence
+from FUWSeq.FUWSequence import FUWSequence
 from UtilityTechniques.ProbabilityWeightAssign import WeightAssign
 from Parameters.ProgramVariable import ProgramVariable
 from DynamicTrie.Trie import Trie

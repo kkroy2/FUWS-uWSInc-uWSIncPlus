@@ -3,7 +3,7 @@ from DynamicTrie.Trie import TrieNode
 from Parameters.Variable import Variable
 from UtilityTechniques.ThresholdCalculation import ThresholdCalculation
 from Parameters.ProgramVariable import ProgramVariable
-from UWSequence.UWSProcess import UWSProcess
+from UWSeq.UWSProcess import UWSProcess
 from Parameters.FileInfo import FileInfo
 from DynamicTrie.DP import DP
 

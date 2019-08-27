@@ -1,10 +1,10 @@
 import copy
 from DynamicTrie.Trie import TrieNode
-from FUWSequence.FUWSProcess import FUWSProcess
+from FUWSeq.FUWSProcess import FUWSProcess
 from Parameters.Variable import Variable
 from UtilityTechniques.ThresholdCalculation import ThresholdCalculation
 from Parameters.ProgramVariable import ProgramVariable
-# from FUWSequence.FUWSProcess import FUWSProcess
+# from FUWSeq.FUWSProcess import FUWSProcess
 from Parameters.FileInfo import FileInfo
 
 

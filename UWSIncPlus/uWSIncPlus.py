@@ -1,4 +1,4 @@
-from FUWSequence.FUWSequence import FUWSequence
+from FUWSeq.FUWSequence import FUWSequence
 from Parameters.Variable import Variable
 from Parameters.ProgramVariable import ProgramVariable
 from Parameters.FileInfo import FileInfo

@@ -1,12 +1,12 @@
 import time
 
-from FUWSequence.FUWSequence import FUWSequence
+from FUWSeq.FUWSequence import FUWSequence
 from Parameters.Variable import Variable
 from Parameters.FileInfo import FileInfo
 from Parameters.userDefined import UserDefined
 from UtilityTechniques.WAMCalculation import WAMCalculation
 from UtilityTechniques.DataPreProcessing import PreProcess
-# from FUWSequence.FUWSequence import FUWSequence
+# from FUWSeq.FUWSeq import FUWSeq
 from UtilityTechniques.ProbabilityWeightAssign import WeightAssign
 from Parameters.ProgramVariable import ProgramVariable
 from DynamicTrie.Trie import Trie
@@ -43,7 +43,7 @@ if __name__ == '__main__':
     print(Variable.size_of_dataset, ' size of dataset')
     print('WAM Done')
     start_time = time.time()
-    root_node = FUWSequence().douWSequence()
+    root_node, total_candidates = FUWSequence().douWSequence()
     fssfs_trie = Trie(root_node)
     fssfs_trie.update_trie(fssfs_trie.root_node)
     fssfs_trie.trie_into_file(fssfs_trie.root_node, '')
