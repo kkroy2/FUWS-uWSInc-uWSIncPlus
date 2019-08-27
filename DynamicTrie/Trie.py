@@ -181,6 +181,7 @@ class Trie():
             curNode.updateflag = False
             if curNode.supportValue + Variable.eps >= ThresholdCalculation.get_wgt_exp_sup():
                 tmp_count += 1
+                # print(curSeq, ' : ', curNode.supportValue)
                 FileInfo.fs.write(curSeq)
                 FileInfo.fs.write(':')
                 FileInfo.fs.write(str(curNode.supportValue))

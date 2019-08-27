@@ -33,22 +33,26 @@ class FUWSequence():
 
                 FUWSProcess().douWSProcess(prjSDB, newNode, copy.deepcopy(cur_seq), maxPr, sWeight, 1)
 
+        total_candidates = self.candidateTrieTraversal(self.candi_root_node, '')
+        print(ThresholdCalculation.get_wgt_exp_sup(), ' : Support Threshold')
         for i in range(0, len(ProgramVariable.uSDB)):
             self.actualSupportCalculation(self.candi_root_node, 0.0, None, 0, i)
         self.check_actual_fs_sfs(self.candi_root_node)
-        return self.candi_root_node
+        return self.candi_root_node, total_candidates
 
     def candidateTrieTraversal(self, curNode, curSeq):
         if curNode.extnType == 'I' and curNode.label is not None:
             curSeq = curSeq[:len(curSeq) - 1] + curNode.label + ')'
         elif curNode.label is not None:
             curSeq = curSeq + '(' + curNode.label + ')'
+        tmp_count = 0
         if curNode.marker:
-            print(curSeq, " current seq with ", curNode.supportValue)
+            # print(curSeq, " current seq with ", curNode.supportValue)
+            tmp_count += 1
             curNode.supportValue = 0.0
         for dscnt in curNode.descendants.values():
-            self.candidateTrieTraversal(dscnt, curSeq)
-        return
+            tmp_count += self.candidateTrieTraversal(dscnt, curSeq)
+        return tmp_count
 
     def actualSupportCalculation(self, cur_node, seq_wgt, array, cur_ln, trn_id):
         tmp_root_node = None

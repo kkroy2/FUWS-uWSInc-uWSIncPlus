@@ -32,7 +32,9 @@ class UWSequence():
 
                 UWSProcess().douWSProcess(prjSDB, newNode, copy.deepcopy(cur_seq), maxPr, sWeight, 1)
 
-        total_candidates = self.candidateTrieTraversal(self.candi_root_node, [])
+        total_candidates = self.candidateTrieTraversal(self.candi_root_node, '')
+        print("Candidate Generated: ", total_candidates)
+        print(ThresholdCalculation.get_wgt_exp_sup(), ' Support Threshold')
         # for i in range(0, len(ProgramVariable.uSDB)):
         #     self.actualSupportCalculation(self.candi_root_node, 0.0, 0, i)
         self.actualSupportCalculation(self.candi_root_node, [], 0.0, 0)
@@ -55,17 +57,31 @@ class UWSequence():
 
     def actualSupportCalculation(self, cur_node, cur_seq, seq_wgt, cur_ln):
 
+        if cur_node.extnType == 'I' and cur_node.label is not None:
+            # cur_seq = cur_seq[:len(cur_seq) - 1] + cur_node.label + ')'
+            cur_seq[len(cur_seq)-1].append(cur_node.label)
+        elif cur_node.label is not None:
+            # cur_seq = cur_seq + '(' + cur_node.label + ')'
+            cur_seq.append([cur_node.label])
+        tmp_count = 0
+        if cur_node.marker:
+            # print(curSeq, " current seq with ", curNode.supportValue)
+            tmp_count += 1
+            ret_support = DP(ProgramVariable.uSDB).supportEvaluation(cur_seq)
+            # print(ret_support)
+            cur_node.supportValue += (ret_support * seq_wgt) / float(cur_ln)
+            # print('Support Calculation done for: ', cur_seq, ': ', cur_node.supportValue)
+
         for dscnt in cur_node.descendants.values():
             tmp_cur_seq = copy.deepcopy(cur_seq)
-            tmp_cur_seq.append(dscnt.label)
+            # tmp_cur_seq.append(dscnt.label)
             tmp_cur_ln = cur_ln
             tmp_seq_wgt = seq_wgt
-
             tmp_seq_wgt += float(ProgramVariable.wgt_dic.get(dscnt.label))
             tmp_cur_ln += 1
-            ret_support = DP(ProgramVariable.uSDB).supportEvaluation(tmp_cur_seq)
-            dscnt.supportValue += (ret_support*tmp_seq_wgt)/float(tmp_cur_ln)
+
             self.actualSupportCalculation(dscnt, tmp_cur_seq, tmp_seq_wgt, tmp_cur_ln)
+
         return
 
     def forINIT(self, item, trn_id):
