@@ -65,12 +65,12 @@ class UWSequence():
             cur_seq.append([cur_node.label])
         tmp_count = 0
         if cur_node.marker:
-            # print(curSeq, " current seq with ", curNode.supportValue)
+            # print(cur_seq, " current seq with ", cur_node.supportValue)
             tmp_count += 1
             ret_support = DP(ProgramVariable.uSDB).supportEvaluation(cur_seq)
             # print(ret_support)
             cur_node.supportValue += (ret_support * seq_wgt) / float(cur_ln)
-            # print('Support Calculation done for: ', cur_seq, ': ', cur_node.supportValue)
+            print('Support Calculation done for: ', cur_seq, ': ', cur_node.supportValue)
 
         for dscnt in cur_node.descendants.values():
             tmp_cur_seq = copy.deepcopy(cur_seq)

@@ -42,9 +42,9 @@ class DP():
         if i >= len(self.curSeq):
             return 1.0
         if j >= len(self.apSDB[trnId]):
-            return -10000000.0
+            return 0.0
         if iE and k >= len(self.apSDB[trnId][j]) and self.curSeq[i] != ')':
-            return -1000000.0
+            return 0.0
 
         if self.dpArray[i][j][k][iE] != -1:
             return self.dpArray[i][j][k][iE]
@@ -73,7 +73,7 @@ class DP():
         if j >= len(self.curSeq):
             return 1.0
         if i >= len(self.apSDB[trn_id]):
-            return -100000000000.0
+            return 0.0
 
         if self.dp[i][j] != -1:
             return self.dp[i][j]
@@ -84,14 +84,6 @@ class DP():
         if flag:
             ret_val = max(ret_val, self.evaluate_support(trn_id, i+1, j+1) * support)
         return ret_val
-
-
-
-
-
-
-
-
 
     def isIn(self, cur_pttn, cur_trn):
         i = 0
