@@ -14,13 +14,13 @@ from DynamicTrie.Trie import Trie
 if __name__ == '__main__':
 
     # initialize user given parameters
-    UserDefined.min_sup = 0.5
+    UserDefined.min_sup = 0.2
     UserDefined.wgt_factor = 0.8
-    Variable.mu = .75
+    Variable.mu = .5
 
     # initialize file info
-    prefix = '../Files/SIGN50'
-    FileInfo.initial_dataset = open(prefix + '/SIGN_sp.txt', 'r')
+    prefix = '../Files/ex'
+    FileInfo.initial_dataset = open(prefix + '/ex_sp.txt', 'r')
     FileInfo.fs = open(prefix + '/initialFS.txt', 'w')
     FileInfo.sfs = open(prefix + '/initialSFS.txt', 'w')
 

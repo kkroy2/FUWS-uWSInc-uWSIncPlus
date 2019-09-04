@@ -17,11 +17,11 @@ if __name__ == '__main__':
     # fname = '../sign/v0/sign_pp0.txt'
     # fname = '../Files/dataset.txt'
 
-    prefix_all = '../retail_partitioned/retail_p20_4'
-    prefix = prefix_all + '/retail_'
-    num_of_increment = 5
+    prefix_all = '../Files/ex/ex_40_3'
+    prefix = prefix_all + '/ex_'
+    num_of_increment = 4
 
-    UserDefined.min_sup = 0.25
+    UserDefined.min_sup = 0.2
     UserDefined.wgt_factor = 0.8
     Variable.mu = 0.5
 
@@ -44,7 +44,7 @@ if __name__ == '__main__':
     WAMCalculation.update_WAM()
     Variable.size_of_dataset = len(ProgramVariable.uSDB)
 
-    fsfss_trie_root_node = FUWSequence().douWSequence()
+    fsfss_trie_root_node, total_candidates = FUWSequence().douWSequence()
     fsfss_trie = Trie(fsfss_trie_root_node)
     fsfss_trie.update_trie(fsfss_trie.root_node)
     fsfss_trie.trie_into_file(fsfss_trie.root_node, '')

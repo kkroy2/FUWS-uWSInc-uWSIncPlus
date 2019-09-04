@@ -25,20 +25,21 @@ class uWSIncPlus():
         # set the min_sup by given local min sup
         UserDefined.min_sup = local_min_sup
         Variable.size_of_dataset = len(ProgramVariable.uSDB)
-        self.cur_ls_trie = Trie(FUWSequence().douWSequence())
+        tmp_root_node, tot_candidates = FUWSequence().douWSequence()
+        self.cur_ls_trie = Trie(tmp_root_node)
 
         # load and update upto threshold and the size of the dataset
 
         for i in range(0, len(ProgramVariable.uSDB)):
             self.fssfs_trie.update_support(self.fssfs_trie.root_node, None, 0.0, 0, i)
 
-        print(self.cur_ls_trie.printPFS(self.cur_ls_trie.root_node, ''), ' : Before update')
+        # print(self.cur_ls_trie.printPFS(self.cur_ls_trie.root_node, ''), ' : Before update')
         previous_data_set += len(ProgramVariable.uSDB)
         ProgramVariable.uSDB = ProgramVariable.pre_uSDB
         for i in range(0, len(ProgramVariable.uSDB)):
             self.cur_ls_trie.update_support(self.cur_ls_trie.root_node, None, 0.0, 0, i)
 
-        print(self.cur_ls_trie.printPFS(self.cur_ls_trie.root_node, ''), ' : After update')
+        # print(self.cur_ls_trie.printPFS(self.cur_ls_trie.root_node, ''), ' : After update')
 
         # Merging tries
         # self.cur_ls_trie.merge_pre_ls_trie_with_fssfs(self.pre_ls_trie.root_node, self.cur_ls_trie.root_node)
@@ -73,7 +74,8 @@ class uWSIncPlus():
         # set the min_sup by given local min sup
         UserDefined.min_sup = local_min_sup
         Variable.size_of_dataset = len(ProgramVariable.uSDB)
-        self.cur_ls_trie = Trie(FUWSequence().douWSequence())
+        tmp_root_node, tot_candidates = FUWSequence().douWSequence()
+        self.cur_ls_trie = Trie(tmp_root_node)
 
         for i in range(0, len(ProgramVariable.uSDB)):
             self.fssfs_trie.update_support(self.fssfs_trie.root_node, None, 0.0, 0, i)

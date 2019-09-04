@@ -13,9 +13,9 @@ from DynamicTrie.Trie import Trie
 if __name__ == '__main__':
 
     # initialize user given parameters
-    UserDefined.min_sup = 0.5
-    UserDefined.wgt_factor = 0.8
-    Variable.mu = .75
+    UserDefined.min_sup = 0.2
+    UserDefined.wgt_factor = 0.7
+    Variable.mu = .5
 
     # initialize file info
     prefix = '../Files/SIGN50'
