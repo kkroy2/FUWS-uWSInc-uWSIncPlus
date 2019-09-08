@@ -80,8 +80,8 @@ if __name__ == '__main__':
         FileInfo.ls = open(prefix_all+'/lsplus' + str(i) + '.txt', 'w')
 
         # FileInfo.initial_dataset = open(prefix, 'r')
-        if i == 1:
-            ProgramVariable.pre_uSDB = ProgramVariable.uSDB
+        # if i == 1:
+        #     ProgramVariable.pre_uSDB = ProgramVariable.uSDB
 
         PreProcess().doProcess()
         wgt_assign_obj.assign(ProgramVariable.itemList)
@@ -98,14 +98,14 @@ if __name__ == '__main__':
         ProgramVariable.pre_upto_wSum += WAMCalculation.upto_wSum
         WAMCalculation.upto_wSum = ProgramVariable.pre_upto_wSum
         WAMCalculation.upto_sum = ProgramVariable.pre_upto_sum
-
-        if i == 1:
-            # ProgramVariable.pre_uSDB = ProgramVariable.uSDB
-            uwsincplus.onlyForFirstIncrement(UserDefined.min_sup*2)
-            ProgramVariable.pre_uSDB = list()
-
-        else:
-            uwsincplus.uWSIncPlusMethod(UserDefined.min_sup*2)
+        #
+        # if i == 1:
+        #     # ProgramVariable.pre_uSDB = ProgramVariable.uSDB
+        #     uwsincplus.onlyForFirstIncrement(UserDefined.min_sup*2)
+        #     ProgramVariable.pre_uSDB = list()
+        #
+        # else:
+        uwsincplus.uWSIncPlusMethod(UserDefined.min_sup*2)
 
         cur_time = time.time()
         FileInfo.time_info.write(str(cur_time-previous_time))
