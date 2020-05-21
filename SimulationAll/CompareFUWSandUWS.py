@@ -23,28 +23,33 @@ if __name__ == '__main__':
     # UserDefined.min_sup = 0.25
     # UserDefined.wgt_factor = 0.8
     # Variable.mu = .75
-    min_sup_lst = [0.01]
-    mu_lst = [0.8]
-    wgt_fct_lst = [1.2]
+    min_sup_lst = [0.2]
+    mu_lst = [0.7]
+    wgt_fct_lst = [1.0]
 
     # initialize file info
     prefix = '../Files/Online'
-    FileInfo.initial_dataset = open(prefix + '/online_sp.txt', 'r')
-    FileInfo.fs = open(prefix + '/initialFS.txt', 'w')
-    FileInfo.sfs = open(prefix + '/initialSFS.txt', 'w')
+    # FileInfo.initial_dataset = open(prefix + '/online_sp.txt', 'r')
+    # FileInfo.fs = open(prefix + '/initialFS.txt', 'w')
+    # FileInfo.sfs = open(prefix + '/initialSFS.txt', 'w')
+
+    FileInfo.initial_dataset = open('initial.data', 'r')
+    FileInfo.fs = open('initialFS_FUWS.txt', 'w')
+    FileInfo.sfs = open('initialSFS_FUWS.txt', 'w')
 
     # Edit Done ...............
 
     # Dataset Preprocessing
+    print('Preprocessed Table:')
     PreProcess().doProcess()
-    # for seq in ProgramVariable.pSDB:
-    #     print(seq, ' Print at Nothing')
+    for seq in ProgramVariable.pSDB:
+        print(seq)
 
     print('Preprocess Done!')
 
     # Weight Assigning
-    WeightAssign.assign(ProgramVariable.itemList)
-    # WeightAssign.manual_assign()
+    # WeightAssign.assign(ProgramVariable.itemList)
+    WeightAssign.manual_assign()
     print('Weight Assign Done')
 
     #WAM calculation && DataBase size update
@@ -60,20 +65,23 @@ if __name__ == '__main__':
             for mu in mu_lst:
                 Variable.mu = mu
 
-                # start_time = time.time()
-                # root_node, total_candidates = FUWSequence().douWSequence()
-                # fssfs_trie = Trie(root_node)
-                # fssfs_trie.update_trie(fssfs_trie.root_node)
-                # total_patterns = fssfs_trie.trie_into_file(fssfs_trie.root_node, '')
-                #
-                #
-                # # FileInfo.fs.close()
-                # # FileInfo.sfs.close()
-                # end_time = time.time()
-                #
-                # print('FUWS: Total Candidates - ', total_candidates)
-                # print('FUWS: Total Patterns - ', total_patterns)
-                # print(start_time, end_time, end_time-start_time)
+                start_time = time.time()
+                root_node, total_candidates = FUWSequence().douWSequence()
+                fssfs_trie = Trie(root_node)
+                fssfs_trie.update_trie(fssfs_trie.root_node)
+                total_patterns = fssfs_trie.trie_into_file(fssfs_trie.root_node, '')
+
+
+                FileInfo.fs.close()
+                FileInfo.sfs.close()
+                end_time = time.time()
+
+                print('FUWS: Total Candidates - ', total_candidates)
+                print('FUWS: Total Patterns - ', total_patterns)
+                print(start_time, end_time, end_time-start_time)
+
+                FileInfo.fs = open('initialFS_UWS.txt', 'w')
+                FileInfo.sfs = open('initialSFS_UWS.txt', 'w')
 
                 start_time = time.time()
                 root_node, total_candidates = UWSequence().douWSequence()

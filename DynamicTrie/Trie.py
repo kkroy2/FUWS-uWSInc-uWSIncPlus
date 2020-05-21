@@ -172,6 +172,7 @@ class Trie():
         return
 
     def trie_into_file(self, curNode, curSeq):
+        # print(curSeq, curNode.supportValue, ThresholdCalculation.get_semi_wgt_exp_sup(), ' At trie into file')
         if curNode.extnType == 'I' and curNode.label is not None:
             curSeq = curSeq[:len(curSeq) - 1] + ', '+ curNode.label + ')'
         elif curNode.label is not None:
@@ -181,15 +182,16 @@ class Trie():
             curNode.updateflag = False
             if curNode.supportValue + Variable.eps >= ThresholdCalculation.get_wgt_exp_sup():
                 tmp_count += 1
-                # print(curSeq, ' : ', curNode.supportValue)
+                print(curSeq, ' FS: ', curNode.supportValue)
                 FileInfo.fs.write(curSeq)
                 FileInfo.fs.write(':')
-                FileInfo.fs.write(str(curNode.supportValue))
+                FileInfo.fs.write(str(round(curNode.supportValue, 2)))
                 FileInfo.fs.write('\n')
-            else:
+            elif curNode.supportValue + Variable.eps >= ThresholdCalculation.get_semi_wgt_exp_sup():
+                print(curSeq, ' SFS: ', curNode.supportValue)
                 FileInfo.sfs.write(curSeq)
                 FileInfo.sfs.write(':')
-                FileInfo.sfs.write(str(curNode.supportValue))
+                FileInfo.sfs.write(str(round(curNode.supportValue, 2)))
                 FileInfo.sfs.write('\n')
         for dscnt in curNode.descendants.values():
             tmp_count += self.trie_into_file(dscnt, curSeq)
@@ -203,7 +205,7 @@ class Trie():
         if curNode.marker:
             FileInfo.ls.write(curSeq)
             FileInfo.ls.write(' ')
-            FileInfo.ls.write(str(curNode.supportValue))
+            FileInfo.ls.write(str(round(curNode.supportValue, 2)))
             FileInfo.ls.write('\n')
         for dscnt in curNode.descendants.values():
             self.trieIntoFilePS(dscnt, curSeq)
@@ -215,12 +217,16 @@ class Trie():
         elif curNode.label is not None:
             curSeq = curSeq + '(' + curNode.label + ')'
         if curNode.marker:
-            print('Current Seg: '+ curSeq, " : ", curNode.supportValue )
+            FileInfo.ls.write(curSeq)
+            FileInfo.ls.write(' ')
+            FileInfo.ls.write(str(round(curNode.supportValue, 2)))
+            FileInfo.ls.write('\n')
+            # print(curSeq+" : "+str(round(curNode.supportValue, 2)))
         for dscnt in curNode.descendants.values():
             self.printFSSFS(dscnt, curSeq)
         return
 
-    def printPFS(self, curNode, curSeq):
+    def printPFS(self, curNode, curSeq, upper_limit, lower_limit):
         # print('function is calling !!')
         count = 0
         if curNode.extnType == 'I' and curNode.label is not None:
@@ -228,10 +234,14 @@ class Trie():
         elif curNode.label is not None:
             curSeq = curSeq + '(' + curNode.label + ')'
         if curNode.marker:
-            if curNode.supportValue >= ThresholdCalculation.get_semi_wgt_exp_sup():
-                count = 1
+            if (curNode.supportValue < upper_limit) and (curNode.supportValue >= lower_limit):
+                FileInfo.pfs.write(curSeq)
+                FileInfo.pfs.write(' ')
+                FileInfo.pfs.write(str(round(curNode.supportValue, 2)))
+                FileInfo.pfs.write('\n')
+                # print(curSeq + ':' + str(round(curNode.supportValue, 2)), upper_limit, lower_limit)
         for dscnt in curNode.descendants.values():
-            count += self.printPFS(dscnt, curSeq)
+            count += self.printPFS(dscnt, curSeq, upper_limit, lower_limit)
         return count
 
     def updateWithInsertion(self, curNode, curSeq, i, support):

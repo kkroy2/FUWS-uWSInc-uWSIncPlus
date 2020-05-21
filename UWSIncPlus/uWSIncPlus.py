@@ -76,6 +76,15 @@ class uWSIncPlus():
         Variable.size_of_dataset = len(ProgramVariable.uSDB)
         tmp_root_node, tot_candidates = FUWSequence().douWSequence()
         self.cur_ls_trie = Trie(tmp_root_node)
+        print('Current LS: ')
+        self.cur_ls_trie.printFSSFS(self.cur_ls_trie.root_node, '')
+
+        print('Database size at this point: ', Variable.size_of_dataset)
+        print('WAM: ', Variable.WAM)
+        # writing tries to file
+        print('Threshold: ', round(ThresholdCalculation.get_wgt_exp_sup(), 2),
+              round(ThresholdCalculation.get_semi_wgt_exp_sup(), 2), ' LWES at uWSIncPlus')
+        # print('Current Promising set:')
 
         for i in range(0, len(ProgramVariable.uSDB)):
             self.fssfs_trie.update_support(self.fssfs_trie.root_node, None, 0.0, 0, i)
@@ -88,6 +97,8 @@ class uWSIncPlus():
         self.fssfs_trie.traverse_trie(self.fssfs_trie.root_node)
         self.fssfs_trie.update_trie(self.fssfs_trie.root_node)
 
+        current_threshold = ThresholdCalculation.get_semi_wgt_exp_sup()
+
         UserDefined.min_sup = previous_threshold
         Variable.size_of_dataset = previous_data_set
         Variable.size_of_dataset += len(ProgramVariable.uSDB)
@@ -95,8 +106,10 @@ class uWSIncPlus():
         print('Database size at this point: ', Variable.size_of_dataset)
         print('WAM: ', Variable.WAM)
         # writing tries to file
-        print('Threshold: ', ThresholdCalculation.get_wgt_exp_sup(), ThresholdCalculation.get_semi_wgt_exp_sup(),
-              ' at uWSeq')
+        print('Threshold: ', round(ThresholdCalculation.get_wgt_exp_sup(),2), round(ThresholdCalculation.get_semi_wgt_exp_sup(),2),
+              round(current_threshold, 2), ' at uWSIncPlus')
+        print('Current Promising set:')
+        self.fssfs_trie.printPFS(self.fssfs_trie.root_node, '', ThresholdCalculation.get_semi_wgt_exp_sup(), current_threshold)
         self.fssfs_trie.trie_into_file(self.fssfs_trie.root_node, '')
 
         return

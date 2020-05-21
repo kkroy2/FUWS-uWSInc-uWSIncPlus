@@ -11,18 +11,20 @@ from UtilityTechniques.ProbabilityWeightAssign import WeightAssign
 from Parameters.ProgramVariable import ProgramVariable
 from DynamicTrie.Trie import Trie
 
+
 if __name__ == '__main__':
 
     # initialize user given parameters
     UserDefined.min_sup = 0.2
-    UserDefined.wgt_factor = 0.8
-    Variable.mu = .5
+    UserDefined.wgt_factor = 1.0
+    Variable.mu = 0.70
 
     # initialize file info
-    prefix = '../Files/ex'
-    FileInfo.initial_dataset = open(prefix + '/ex_sp.txt', 'r')
-    FileInfo.fs = open(prefix + '/initialFS.txt', 'w')
-    FileInfo.sfs = open(prefix + '/initialSFS.txt', 'w')
+    prefix = '/result'
+    FileInfo.initial_dataset = open('initial.data', 'r')
+    FileInfo.fs = open(prefix + '/FS.txt', 'w')
+    FileInfo.sfs = open(prefix + '/SFS.txt', 'w')
+    FileInfo.pfs = open(prefix + '/pfs.txt', 'w')
 
     # Dataset Preprocessing
     PreProcess().doProcess()
@@ -32,8 +34,8 @@ if __name__ == '__main__':
     print('Preprocess Done!')
 
     # Weight Assigning
-    WeightAssign.assign(ProgramVariable.itemList)
-    # WeightAssign.manual_assign()
+    # WeightAssign.assign(ProgramVariable.itemList)
+    WeightAssign.manual_assign()
     print('Weight Assign Done')
 
     #WAM calculation && DataBase size update

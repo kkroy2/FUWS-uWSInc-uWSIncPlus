@@ -72,10 +72,17 @@ class WeightAssign():
 
     @staticmethod
     def manual_assign():
+        # ProgramVariable.wgt_dic['a'] = 1.0
+        # ProgramVariable.wgt_dic['b'] = 1.0
+        # ProgramVariable.wgt_dic['c'] = 1.0
+        # ProgramVariable.wgt_dic['d'] = 1.0
+        # ProgramVariable.wgt_dic['e'] = 1.0
+        # ProgramVariable.wgt_dic['f'] = 1.0
+        # ProgramVariable.wgt_dic['g'] = 1.0
         ProgramVariable.wgt_dic['a'] = 0.8
         ProgramVariable.wgt_dic['b'] = 1.0
         ProgramVariable.wgt_dic['c'] = 0.9
-        ProgramVariable.wgt_dic['d'] = 0.3
+        ProgramVariable.wgt_dic['d'] = 0.9
         ProgramVariable.wgt_dic['e'] = 0.7
         ProgramVariable.wgt_dic['f'] = 0.9
         ProgramVariable.wgt_dic['g'] = 0.8

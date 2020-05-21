@@ -10,11 +10,11 @@ if __name__=='__main__':
 
     datasets = [
                 "SIGN.txt"
-                ,"LEVIATHAN.txt"
-                # ,"BIBLE.txt"
-                # ,"FIFA.txt"
-                # ,"accidents_seq.txt"
-                ,"BMS2.txt"
+                # ,"LEVIATHAN.txt"
+                # # ,"BIBLE.txt"
+                # # ,"FIFA.txt"
+                # # ,"accidents_seq.txt"
+                # ,"BMS2.txt"
                  ]
 
     convertSize = [

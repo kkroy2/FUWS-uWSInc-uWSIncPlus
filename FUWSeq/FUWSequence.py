@@ -22,9 +22,21 @@ class FUWSequence():
     def douWSequence(self):
 
         allItmDic = self.determination_projection()
+        print('Threshold: ', round(ThresholdCalculation.get_wgt_exp_sup(), 2), round(ThresholdCalculation.get_semi_wgt_exp_sup(), 2))
+        print('Initial items: ', allItmDic)
+        max_weight = 0.0
+        copied_dic = copy.deepcopy(allItmDic)
+        for itm in sorted(allItmDic):
+            if allItmDic[itm][2] + Variable.eps >= ThresholdCalculation.get_semi_wgt_exp_sup():
+                copied_dic[itm] = allItmDic[itm]
+                max_weight = max(max_weight, allItmDic[itm][0])
+        allItmDic = copy.deepcopy(copied_dic)
+        copied_dic = None
+
         for item in sorted(allItmDic):
             sWeight, maxPr, wExpSupTop, prjSDB = allItmDic[item]
             if wExpSupTop + Variable.eps >= ThresholdCalculation.get_semi_wgt_exp_sup():
+                print('wExpSupCap: ', round(wExpSupTop, 2), 'maxPr ', round(maxPr, 2), 'mxWs: ', round(sWeight, 2), ' for item ', item)
                 cur_seq = list()
                 cur_seq.append(str(item))
                 newNode = TrieNode(True, 'S', item, 0.0, False)
@@ -34,7 +46,7 @@ class FUWSequence():
                 FUWSProcess().douWSProcess(prjSDB, newNode, copy.deepcopy(cur_seq), maxPr, sWeight, 1)
 
         total_candidates = self.candidateTrieTraversal(self.candi_root_node, '')
-        print(ThresholdCalculation.get_wgt_exp_sup(), ' : Support Threshold')
+        # print(ThresholdCalculation.get_wgt_exp_sup(), ' : Support Threshold')
         for i in range(0, len(ProgramVariable.uSDB)):
             self.actualSupportCalculation(self.candi_root_node, 0.0, None, 0, i)
         self.check_actual_fs_sfs(self.candi_root_node)
@@ -47,7 +59,7 @@ class FUWSequence():
             curSeq = curSeq + '(' + curNode.label + ')'
         tmp_count = 0
         if curNode.marker:
-            # print(curSeq, " current seq with ", curNode.supportValue)
+            print(curSeq)
             tmp_count += 1
             curNode.supportValue = 0.0
         for dscnt in curNode.descendants.values():
@@ -142,6 +154,7 @@ class FUWSequence():
         curNode.marker = False
         if curNode.supportValue + Variable.eps >= ThresholdCalculation.get_wgt_exp_sup():
             curNode.marker = True
+
         elif curNode.supportValue + Variable.eps >= ThresholdCalculation.get_semi_wgt_exp_sup():
             curNode.marker = True
         for dscnt in curNode.descendants.values():
