@@ -4,7 +4,6 @@ from FUWSeq.FUWSProcess import FUWSProcess
 from Parameters.Variable import Variable
 from UtilityTechniques.ThresholdCalculation import ThresholdCalculation
 from Parameters.ProgramVariable import ProgramVariable
-# from FUWSeq.FUWSProcess import FUWSProcess
 from Parameters.FileInfo import FileInfo
 
 
@@ -14,29 +13,27 @@ class FUWSequence():
     imp_root_node = None
 
     def __init__(self):
-        self.candi_root_node = TrieNode(False, None, None, 0.0, False)
-        # def __init__(self, marker, extnType, label, support, flag):
-
+        self.candi_root_node = TrieNode(False, None, None, 0.0, False)      # Initialization
         pass
 
     def douWSequence(self):
 
-        allItmDic = self.determination_projection()
-        print('Threshold: ', round(ThresholdCalculation.get_wgt_exp_sup(), 2), round(ThresholdCalculation.get_semi_wgt_exp_sup(), 2))
-        print('Initial items: ', allItmDic)
+        allItmDic = self.determination_projection()         # find all items and their corresponding projections
         max_weight = 0.0
         copied_dic = copy.deepcopy(allItmDic)
+
         for itm in sorted(allItmDic):
             if allItmDic[itm][2] + Variable.eps >= ThresholdCalculation.get_semi_wgt_exp_sup():
                 copied_dic[itm] = allItmDic[itm]
                 max_weight = max(max_weight, allItmDic[itm][0])
+
         allItmDic = copy.deepcopy(copied_dic)
         copied_dic = None
 
-        for item in sorted(allItmDic):
+        for item in sorted(allItmDic):      # iterate over all potential extendable items to start from 1-length pattern
             sWeight, maxPr, wExpSupTop, prjSDB = allItmDic[item]
+
             if wExpSupTop + Variable.eps >= ThresholdCalculation.get_semi_wgt_exp_sup():
-                print('wExpSupCap: ', round(wExpSupTop, 2), 'maxPr ', round(maxPr, 2), 'mxWs: ', round(sWeight, 2), ' for item ', item)
                 cur_seq = list()
                 cur_seq.append(str(item))
                 newNode = TrieNode(True, 'S', item, 0.0, False)
@@ -46,7 +43,6 @@ class FUWSequence():
                 FUWSProcess().douWSProcess(prjSDB, newNode, copy.deepcopy(cur_seq), maxPr, sWeight, 1)
 
         total_candidates = self.candidateTrieTraversal(self.candi_root_node, '')
-        # print(ThresholdCalculation.get_wgt_exp_sup(), ' : Support Threshold')
         for i in range(0, len(ProgramVariable.uSDB)):
             self.actualSupportCalculation(self.candi_root_node, 0.0, None, 0, i)
         self.check_actual_fs_sfs(self.candi_root_node)
