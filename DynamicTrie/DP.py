@@ -11,30 +11,14 @@ class DP():
         self.apSDB = db
         pass
 
-    def supportEvaluation(self, curSeq):
-
+    def supportEvaluation(self, curSeq):            # calculate WES using Dynamic programming that used in uWSequence
         expSupport = 0.0
 
         for i in range(0, len(self.apSDB)):
-            # print('cur trans: ', self.apSDB[i])
-            # ln = len(self.apSDB[i])
-            # row = len(curSeq)
-            #
-            # col = 0
-            # for seq in self.apSDB[i]:
-            #     col = max(col, len(seq))
-            #
-            # self.dpArray = [[[[-1 for flag in range(0, 2 + 1)] for k in range(0, col + 1)] for i in range(0, ln + 1)]
-            #                 for j in range(0, row + 1)]
-            #
-            # self.curSeq = curSeq
-            # ret_val = self.evaluationDP(0, 0, 0, False, i)
-            # expSupport += ret_val
             self.curSeq = curSeq
             self.dp = [[-1 for col in range(0, len(self.curSeq)+1)] for row in range(0, len(self.apSDB[i])+1)]
             ret_val = self.evaluate_support(i, 0, 0)
             expSupport += ret_val
-            # print(curSeq, ' Ret_val : ', ret_val)
 
         return expSupport
 

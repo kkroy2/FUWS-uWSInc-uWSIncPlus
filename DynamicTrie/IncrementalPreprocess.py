@@ -1,10 +1,9 @@
 from Parameters.ProgramVariable import ProgramVariable
 
 
-class IncPreProcess():
+class IncPreProcess():          # this is used to preprocess each increments which is same as preprocess method
     def __init__(self, file):
         self.file = open(file, 'r')
-        # self.preProcess()
         ProgramVariable.uSDB = []
         ProgramVariable.cnt_dic = dict()
         ProgramVariable.itemList = list()
@@ -53,9 +52,5 @@ class IncPreProcess():
                     val += ch
 
             ProgramVariable.uSDB.append(apSeq)
-
-        # for seq in ProgramVariable.uSDB:
-            # print(seq)
-        # print(len(ProgramVariable.uSDB), 'appended dataset size why ')
         return
 

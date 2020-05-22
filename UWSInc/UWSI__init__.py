@@ -2,7 +2,6 @@ import time
 
 from Parameters.userDefined import UserDefined
 from Parameters.FileInfo import FileInfo
-from UtilityTechniques.DataPreProcessing import PreProcess
 from UtilityTechniques.ProbabilityWeightAssign import WeightAssign
 from Parameters.ProgramVariable import ProgramVariable
 from UtilityTechniques.WAMCalculation import WAMCalculation
@@ -11,114 +10,87 @@ from FUWSeq.FUWSequence import FUWSequence
 from UtilityTechniques.DataPreProcessing import PreProcess
 from UWSInc.uWSInc import uWSInc
 from DynamicTrie.Trie import Trie, TrieNode
-from UtilityTechniques.ThresholdCalculation import ThresholdCalculation
 
 
 if __name__ == '__main__':
-    # take file input
-    # fname = '../sign/v0/sign_pp0.txt'
-    # fname = '../Files/dataset.txt'
 
-    prefix_all = '../SimulationAll'
-
-    prefix = prefix_all + '/result/Inc'
-    num_of_increment = 2
-
+    # initialize user given parameters by default values.
     UserDefined.min_sup = 0.2
     UserDefined.wgt_factor = 1.0
     Variable.mu = 0.7
 
-    fname = prefix_all+'/initial.data'
-    FileInfo.set_initial_file_info(fname, prefix+'/fs.txt', prefix+'/sfs.txt', prefix+'/pfs.txt')
-    FileInfo.time_info = open(prefix_all+'/time_info_v05.txt', 'w')
+    # code to take input values for the parameters which are used in our proposed algorithm
+    UserDefined.min_sup = float(input('Please enter minimum support(e.g. 0.2): '))
+    UserDefined.wgt_factor = float(input('weight factor(e.g. 1.0): '))
+    Variable.mu = float(input('and buffer ratio, mu(e.g. 0.70): '))
+
+    # initialize file information where you wish to save the outputs of the algorithm
+    prefix = '/result'
+    fname = input('Enter the path for the data which has to be in specified format: ')
+    FileInfo.set_initial_file_info(fname, prefix + '/fs.txt', prefix + '/sfs.txt', prefix + '/pfs.txt')
+    FileInfo.ls = open(prefix + '/ls.txt', 'w')
+    FileInfo.time_info = open(prefix + '/time_info_plus_v0.txt', 'w')
+
+    # Set the number of increments
+    num_of_increment = 2
 
     start_time = time.time()
-    # preprocess the input file
+
+    # Preprocess initial dataset in the way that is described in our algorithm
     PreProcess().doProcess()
-    # initialize the parameters
+
+    # Assign weights of all items. Here, we have provided two ways to do that-
+    # one is to assign weight to each item manually
+    # second to assign weights to all items using randomly generate weights following normal distribution
     previous_time = time.time()
     wgt_assign_obj = WeightAssign()
-    # wgt_assign_obj.assign(ProgramVariable.itemList)
-    wgt_assign_obj.manual_assign()
-    WAMCalculation.update_WAM()
+    wgt_assign_obj.assign(ProgramVariable.itemList)  # using generated weights
+    # we provide a weight file named as 'weights.csv' in 'Files' folder.
+    # You can change the file but make sure that you name the file exactly same as the given name
 
+    # wgt_assign_obj.manual_assign()            # this is for manual way to assign weight
+
+    # we provided a file named as 'manual_weights.txt' in 'Files' folder
+    # In that file you can assign weight to each item manually. This is to inform you that
+    # file contains an item and its weight separated by an space in each line
+    # Don't forget to update accordingly if you wish
+
+    # WAM will be calculated && DataBase size will be initialized
+    WAMCalculation.update_WAM()
     Variable.size_of_dataset = len(ProgramVariable.uSDB)
-    # print(len(ProgramVariable.uSDB))
-    fsfss_trie_root_node , total_candidate = FUWSequence().douWSequence()
+
+    # Run FUWS algorithm to get FS and SFS from initial datasets and store store them into USeq-Trie
+    fsfss_trie_root_node, total_candidates = FUWSequence().douWSequence()
     fsfss_trie = Trie(fsfss_trie_root_node)
     fsfss_trie.update_trie(fsfss_trie.root_node)
     fsfss_trie.trie_into_file(fsfss_trie.root_node, '')
-    FileInfo.fs.write('\n ----------- \n')
-    FileInfo.sfs.write('\n ---------- \n')
-
-    print('Threshold: ', round(ThresholdCalculation.get_wgt_exp_sup(), 2))
 
     cur_time = time.time()
-    FileInfo.time_info.write(str(cur_time-previous_time))
+    FileInfo.time_info.write(str(cur_time - previous_time))
     FileInfo.time_info.write('\n')
     inc_array = list()
-    # FileInfo.fs.close()
-    # FileInfo.fs = open(prefix_all + '/fs' + str(0) + '.txt', 'r')
-    # count_fs = 0
-    # for seq in FileInfo.fs:
-    #     count_fs += 1
-    # inc_array.append(count_fs)
-
     previous_time = time.time()
-    # FileInfo.sfs.close()
-    # FileInfo.fs.close()
+
     uwsinc = uWSInc(fsfss_trie, )
     for i in range(1, num_of_increment+1):
-        # FileInfo.fs = open(prefix_all+'/fs'+str(i)+'.txt','w')
-        # FileInfo.sfs = open(prefix_all+'/sfs'+str(i)+'.txt', 'w')
-        fname = prefix_all+'/inc_'+str(i)+'.data'
+        # fname = prefix+'/inc_'+str(i)+'.data'
+        fname = input("Enter the path for " + str('i') + '-th increment data: ', )
         FileInfo.initial_dataset = open(fname, 'r')
         PreProcess().doProcess()
 
-        print(Variable.size_of_dataset, ' Before')
         Variable.size_of_dataset += len(ProgramVariable.uSDB)
-        print(Variable.size_of_dataset, ' After')
         wgt_assign_obj.assign(ProgramVariable.itemList)
         WAMCalculation.update_WAM()
-        print(Variable.WAM, ' :WAM')
-        print(round(ThresholdCalculation.get_wgt_exp_sup(),2), round(ThresholdCalculation.get_semi_wgt_exp_sup(),2), ' : Threshold')
+
         uwsinc.uWSIncMethod()
 
         cur_time = time.time()
         FileInfo.time_info.write(str(cur_time - previous_time))
         FileInfo.time_info.write('\n')
 
-        # FileInfo.fs.close()
-        # FileInfo.fs = open(prefix_all + '/fs' + str(i) + '.txt', 'r')
-        # count_fs = 0
-        # for seq in FileInfo.fs:
-        #     count_fs += 1
-        # inc_array.append(count_fs)
-
         previous_time = time.time()
-        print('Increment No. ', i)
-
-    #
-    # fname = '../Files/increment.txt'
-    # IncPreProcess(fname).preProcess()
-    # print(ProgramVariable.cnt_dic)
-    # # print(ProgramVariable.uSDB)
-    # # print(len(ProgramVariable.uSDB), ' At here uwsi')
-    # wgt_assign_obj.assign(ProgramVariable.itemList)
-    # WAMCalculation.update_WAM()
-    # uwsinc.uWSIncMethod()
-    # cur_time = time.time()
-    # FileInfo.time_info.write(str(cur_time - previous_time))
-    # FileInfo.time_info.write('\n')
-    # previous_time = time.time()
-    # # print('Increment No. ', i)
-
-        # FileInfo.fs.close()
-        # FileInfo.sfs.close()
         FileInfo.fs.write('\n ----------- \n')
         FileInfo.sfs.write('\n ---------- \n')
+
     end_time = time.time()
-    print(inc_array)
-    print(round(ThresholdCalculation.get_wgt_exp_sup(), 2), round(ThresholdCalculation.get_semi_wgt_exp_sup(), 2), " at final round")
-    print(start_time, end_time, end_time-start_time)
     FileInfo.time_info.close()
