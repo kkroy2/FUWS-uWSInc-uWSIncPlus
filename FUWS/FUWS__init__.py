@@ -1,6 +1,6 @@
 import time
 
-from FUWSeq.FUWSequence import FUWSequence
+from FUWS.FUWSequence import FUWSequence
 from Parameters.Variable import Variable
 from Parameters.FileInfo import FileInfo
 from Parameters.userDefined import UserDefined

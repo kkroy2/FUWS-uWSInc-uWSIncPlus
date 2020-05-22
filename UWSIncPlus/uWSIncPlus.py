@@ -1,4 +1,4 @@
-from FUWSeq.FUWSequence import FUWSequence
+from FUWS.FUWSequence import FUWSequence
 from Parameters.Variable import Variable
 from Parameters.ProgramVariable import ProgramVariable
 from DynamicTrie.Trie import Trie

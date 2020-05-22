@@ -7,7 +7,7 @@ from UtilityTechniques.ProbabilityWeightAssign import WeightAssign
 from Parameters.ProgramVariable import ProgramVariable
 from UtilityTechniques.WAMCalculation import WAMCalculation
 from Parameters.Variable import Variable
-from FUWSeq.FUWSequence import FUWSequence
+from FUWS.FUWSequence import FUWSequence
 from UWSIncPlus.uWSIncPlus import uWSIncPlus
 from DynamicTrie.Trie import Trie, TrieNode
 

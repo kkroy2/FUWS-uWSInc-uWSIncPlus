@@ -1,13 +1,13 @@
 import time
 
-from FUWSeq.FUWSequence import FUWSequence
+from FUWS.FUWSequence import FUWSequence
 from Parameters.Variable import Variable
 from Parameters.FileInfo import FileInfo
 from Parameters.userDefined import UserDefined
 from UWSeq.UWSequence import UWSequence
 from UtilityTechniques.WAMCalculation import WAMCalculation
 from UtilityTechniques.DataPreProcessing import PreProcess
-# from FUWSeq.FUWSeq import FUWSeq
+# from FUWS.FUWS import FUWS
 from UtilityTechniques.ProbabilityWeightAssign import WeightAssign
 from Parameters.ProgramVariable import ProgramVariable
 from DynamicTrie.Trie import Trie

@@ -6,7 +6,7 @@ from Parameters.userDefined import UserDefined
 from UtilityTechniques.ThresholdCalculation import ThresholdCalculation
 from UtilityTechniques.WAMCalculation import WAMCalculation
 from UtilityTechniques.DataPreProcessing import PreProcess
-from FUWSeq.FUWSequence import FUWSequence
+from FUWS.FUWSequence import FUWSequence
 from UtilityTechniques.ProbabilityWeightAssign import WeightAssign
 from Parameters.ProgramVariable import ProgramVariable
 from DynamicTrie.Trie import Trie
@@ -39,13 +39,13 @@ if __name__ == '__main__':
     previous_psdb = []
     inc_array = list()
     for i in range(0, number_of_increment):
-    # initialize file info
+        # initialize file info
         previous_time = time.time()
         FileInfo.initial_dataset = open(prefix_all+'/retail_'+str(i)+'.txt', 'r')
         FileInfo.fs = open(prefix_all+'/fs_naive'+str(i)+'.txt', 'w')
         FileInfo.sfs = open(prefix_all+'/sfs_naive'+str(i)+'.txt', 'w')
 
-    # Dataset Preprocessing
+        # Dataset Preprocessing
         PreProcess().doProcess()
 
         WeightAssign.assign(ProgramVariable.itemList)
